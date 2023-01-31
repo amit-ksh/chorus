@@ -1,10 +1,10 @@
-import GradientLayout from "../../components/gradientLayout";
-import SongsTable from "../../components/songsTable";
-import { validateToken } from "../../lib/auth";
-import prisma from "../../lib/prisma";
+import GradientLayout from '../../components/gradientLayout';
+import SongsTable from '../../components/songsTable';
+import { validateToken } from '../../lib/auth';
+import prisma from '../../lib/prisma';
 
 const getBGColor = (id) => {
-  const colors = ["red", "green", "orange", "purple", "gray", "teal", "yellow"];
+  const colors = ['red', 'green', 'orange', 'purple', 'gray', 'teal', 'yellow'];
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
 };
 
@@ -32,7 +32,7 @@ export const getServerSideProps = async ({ query, req }) => {
     return {
       redirect: {
         permanent: false,
-        path: "/signin",
+        path: '/signin',
       },
     };
   }

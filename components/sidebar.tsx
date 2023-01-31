@@ -1,5 +1,5 @@
-import NextImage from "next/image";
-import NextLink from "next/link";
+import NextImage from 'next/image';
+import NextLink from 'next/link';
 import {
   Box,
   List,
@@ -8,44 +8,44 @@ import {
   Divider,
   LinkBox,
   LinkOverlay,
-} from "@chakra-ui/layout";
+} from '@chakra-ui/layout';
 import {
   MdHome,
   MdSearch,
   MdPlaylistAdd,
   MdFavorite,
   MdLibraryMusic,
-} from "react-icons/md";
-import { usePlaylist } from "../lib/hooks";
+} from 'react-icons/md';
+import { usePlaylist } from '../lib/hooks';
 
 const navMenu = [
   {
-    name: "Home",
+    name: 'Home',
     icon: MdHome,
-    route: "/",
+    route: '/',
   },
   {
-    name: "Search",
+    name: 'Search',
     icon: MdSearch,
-    route: "/search",
+    route: '/search',
   },
   {
-    name: "Your Library",
+    name: 'Your Library',
     icon: MdLibraryMusic,
-    route: "/library",
+    route: '/library',
   },
 ];
 
 const musicMenu = [
   {
-    name: "Create Playlist",
+    name: 'Create Playlist',
     icon: MdPlaylistAdd,
-    route: "/",
+    route: '/',
   },
   {
-    name: "Favorites",
+    name: 'Favorites',
     icon: MdFavorite,
-    route: "/favorite",
+    route: '/favorite',
   },
 ];
 
@@ -102,7 +102,7 @@ const Sidebar = () => {
                 <LinkBox>
                   <NextLink
                     href={{
-                      pathname: "/playlist/[id]",
+                      pathname: '/playlist/[id]',
                       query: { id: playlist.id },
                     }}
                     passHref

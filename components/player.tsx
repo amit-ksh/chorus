@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import {
   ButtonGroup,
   IconButton,
@@ -10,8 +10,8 @@ import {
   Box,
   Flex,
   Text,
-} from "@chakra-ui/react";
-import ReactHowler from "react-howler";
+} from '@chakra-ui/react';
+import ReactHowler from 'react-howler';
 import {
   MdOutlinePauseCircleFilled,
   MdOutlinePlayCircleFilled,
@@ -19,9 +19,9 @@ import {
   MdShuffle,
   MdSkipNext,
   MdSkipPrevious,
-} from "react-icons/md";
-import { useStoreActions } from "easy-peasy";
-import { formatTime } from "../lib/formatter";
+} from 'react-icons/md';
+import { useStoreActions } from 'easy-peasy';
+import { formatTime } from '../lib/formatter';
 
 const Player = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
@@ -130,7 +130,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="shuffle"
             fontSize="24px"
             icon={<MdShuffle />}
-            color={shuffle ? "white" : "gray.600"}
+            color={shuffle ? 'white' : 'gray.600'}
             onClick={onShuffle}
           />
           <IconButton
@@ -177,7 +177,7 @@ const Player = ({ songs, activeSong }) => {
             aria-label="repeat"
             fontSize="24px"
             icon={<MdOutlineRepeat />}
-            color={repeat ? "white" : "gray.600"}
+            color={repeat ? 'white' : 'gray.600'}
             onClick={onRepeat}
           />
         </ButtonGroup>
@@ -190,7 +190,7 @@ const Player = ({ songs, activeSong }) => {
           </Box>
           <Box w="80%">
             <RangeSlider
-              aria-label={["min", "max"]}
+              aria-label={['min', 'max']}
               step={0.1}
               min={0}
               max={duration ? (duration.toFixed(2) as unknown as number) : 0}

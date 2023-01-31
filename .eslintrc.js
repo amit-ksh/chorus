@@ -1,49 +1,35 @@
 module.exports = {
-  extends: ["next/core-web-vitals", "airbnb", "airbnb/hooks", "prettier"],
-  plugins: ["react", "@typescript-eslint", "prettier"],
+  root: true,
+
   env: {
     browser: true,
     es2021: true,
     node: true,
   },
-  parser: "@typescript-eslint/parser",
+
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 13,
-    sourceType: "module",
+    ecmaVersion: 2022,
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser',
   },
+
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier',
+  ],
+
+  plugins: ['@typescript-eslint', 'prettier'],
+
   rules: {
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "react/jsx-props-no-spreading": "off",
-    "import/prefer-default-export": "off",
-    "no-param-reassign": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
+    'no-unused-expressions': 'off',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'prettier/prettier': [
+      'error',
       {
-        ts: "never",
-        tsx: "never",
+        singleQuote: true,
       },
     ],
-    "consistent-return": "off",
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off",
-    "react/jsx-filename-extension": "off",
-    "react/function-component-definition": [
-      "error",
-      {
-        namedComponents: "arrow-function",
-        unnamedComponents: "arrow-function",
-      },
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
+    quotes: ['error', 'single', { avoidEscape: true }],
   },
 };

@@ -1,9 +1,9 @@
-import { Box } from "@chakra-ui/layout";
-import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { BsFillPlayFill } from "react-icons/bs";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { useStoreActions } from "easy-peasy";
-import { formatDate, formatTime } from "../lib/formatter";
+import { Box } from '@chakra-ui/layout';
+import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { BsFillPlayFill } from 'react-icons/bs';
+import { AiOutlineClockCircle } from 'react-icons/ai';
+import { useStoreActions } from 'easy-peasy';
+import { formatDate, formatTime } from '../lib/formatter';
 
 const SongsTable = ({ songs }) => {
   const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
@@ -45,9 +45,9 @@ const SongsTable = ({ songs }) => {
             {songs.map((song, i) => (
               <Tr
                 sx={{
-                  transition: "all .3s",
-                  "&:hover": {
-                    bg: "rgba(255, 255, 255, 0.1)",
+                  transition: 'all .3s',
+                  '&:hover': {
+                    bg: 'rgba(255, 255, 255, 0.1)',
                   },
                 }}
                 key={song.id}
