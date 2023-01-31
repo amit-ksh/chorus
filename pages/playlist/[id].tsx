@@ -36,9 +36,10 @@ export const getServerSideProps = async ({ query, req }) => {
       },
     };
   }
+
   const [playlist] = await prisma.playlist.findMany({
     where: {
-      id: +query.id,
+      id: query.id,
       userId: user.id,
     },
     include: {
