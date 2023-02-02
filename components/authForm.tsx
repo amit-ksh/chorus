@@ -10,6 +10,7 @@ import {
   InputRightElement,
   Link,
   LinkBox,
+  IconButton,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
@@ -42,24 +43,24 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
   };
 
   return (
-    <Box h="full" w="100vw" bg="black" color="white">
+    <Box bg="black" color="white">
       <Flex
         justify="center"
         align="center"
-        h="100px"
+        h="15vh"
         borderBottom="white 1px solid"
       >
-        <NextImage src="/logo.svg" height={60} width={120} />
+        <NextImage src="/logo.svg" alt="logo" height={60} width={120} />
       </Flex>
 
-      <Flex justify="center" align="center" py="10%">
+      <Flex minH="85vh" justify="center" align="center" py="10%">
         <Flex
           direction="column"
           gap={6}
           p="50px"
           bg="gray.900"
           borderRadius="lg"
-          w={{ base: '90%', md: '60%' }}
+          w={{ base: '90%', md: '60%', lg: '40%' }}
         >
           <Heading>{mode === 'signin' ? 'Sign In' : 'Sign Up'}</Heading>
           <form onSubmit={handleSubmit}>
@@ -101,13 +102,17 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
                     type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <InputRightElement
-                    cursor="pointer"
-                    children={
-                      showPassword ? <AiFillEyeInvisible /> : <AiFillEye />
-                    }
-                    onClick={() => setShowPassword((value) => !value)}
-                  />
+                  <InputRightElement>
+                    <IconButton
+                      aria-label="Show/Hide Password button"
+                      size="sm"
+                      bg="transparent"
+                      onClick={() => setShowPassword((value) => !value)}
+                      icon={
+                        showPassword ? <AiFillEyeInvisible /> : <AiFillEye />
+                      }
+                    />
+                  </InputRightElement>
                 </InputGroup>
               </FormControl>
 
@@ -124,11 +129,16 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               </Button>
             </Flex>
           </form>
+
           <Box textAlign="center">
             <Box mb="2" fontWeight="semibold">
               OR
             </Box>
-            <LinkBox color="green.400" textDecoration="underline">
+            <LinkBox
+              color="green.400"
+              fontWeight="semibold"
+              textDecoration="underline"
+            >
               <Link
                 as={NextLink}
                 href={mode === 'signin' ? '/signup' : '/signin'}
