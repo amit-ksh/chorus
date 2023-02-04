@@ -6,6 +6,7 @@ import prisma from '../lib/prisma';
 
 const Home = ({ artists }) => {
   const { user, isLoading } = useMe();
+
   return (
     <GradientLayout
       color="green"
