@@ -16,7 +16,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
+import { useRouter } from 'next/router';
+
 import { useMe } from '../lib/hooks';
+import { auth } from '../lib/mutations';
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
@@ -24,8 +27,18 @@ interface MobileProps extends FlexProps {
 const Header = ({ onOpen, ...rest }: MobileProps) => {
   const { user } = useMe();
 
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await auth('signout', {});
+    router.push('/signin');
+  };
+
   return (
     <Flex
+      zIndex={99}
+      position="sticky"
+      top={0}
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
@@ -115,6 +128,7 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
             color="red"
             _hover={{ bg: 'red.500', color: 'white' }}
             _focus={{ bg: 'red.500', color: 'white' }}
+            onClick={handleSignOut}
           >
             Sign out
           </MenuItem>

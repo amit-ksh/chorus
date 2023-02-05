@@ -1,10 +1,10 @@
 import fetcher from './fetcher';
 
 export const auth = (
-  mode: 'signin' | 'signup',
+  mode: 'signin' | 'signup' | 'signout',
   body: {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
     firstName?: string;
     lastName?: string;
   }

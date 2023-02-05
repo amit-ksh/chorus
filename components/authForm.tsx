@@ -1,3 +1,5 @@
+import NextImage from 'next/image';
+import NextLink from 'next/link';
 import {
   Box,
   Flex,
@@ -14,10 +16,9 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { auth } from '../lib/mutations';
-import NextImage from 'next/image';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import NextLink from 'next/link';
+
+import { auth } from '../lib/mutations';
 
 const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
   const [firstName, setFirstName] = useState('');
@@ -39,7 +40,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
     // returns user
     await auth(mode, { email, password, firstName, lastName });
     setIsLoading(false);
-    router.push('/');
+    router.push('/user');
   };
 
   return (
@@ -106,8 +107,12 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
                     <IconButton
                       aria-label="Show/Hide Password button"
                       size="sm"
-                      bg="transparent"
                       onClick={() => setShowPassword((value) => !value)}
+                      bg="transparent"
+                      _hover={{
+                        bg: 'transparent',
+                        transform: 'scale(1.1)',
+                      }}
                       icon={
                         showPassword ? <AiFillEyeInvisible /> : <AiFillEye />
                       }
