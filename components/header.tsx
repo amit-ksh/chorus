@@ -77,7 +77,7 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
           <HStack>
             <Avatar
               size="sm"
-              src="https://tinted-gym-f99.notion.site/image/https%3A%2F%2Fdl.dropboxusercontent.com%2Fs%2Fbgiv0ssz3xpotz9%2Fpeep.png%3Fdl%3D0?table=block&id=33f9771b-0e6f-4a72-832c-69ed2d41f290&spaceId=511cd811-5561-4a61-b550-c4086b4afafb&width=1380&userId=&cache=v2"
+              src={`https://picsum.photos/400?random=${user?.id}`}
             />
 
             <VStack
@@ -99,7 +99,7 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
           mr={2}
           px={2}
           bg="black"
-          boxShadow="-1px -1px 6px 2px var(--chakra-colors-green-400)"
+          boxShadow="-1px -1px 4px 0 var(--chakra-colors-gray-400)"
           sx={{
             button: {
               bg: 'black',

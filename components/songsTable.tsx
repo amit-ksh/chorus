@@ -37,7 +37,7 @@ const SongsTable = ({ songs }) => {
               <Th>Title</Th>
               <Th>Date Added</Th>
               <Th>
-                <AiOutlineClockCircle />
+                <AiOutlineClockCircle size="18px" />
               </Th>
             </Tr>
           </Thead>

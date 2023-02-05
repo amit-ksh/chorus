@@ -10,6 +10,7 @@ import {
   Box,
   Flex,
   Text,
+  Tooltip,
 } from '@chakra-ui/react';
 import ReactHowler from 'react-howler';
 import {
@@ -122,25 +123,46 @@ const Player = ({ songs, activeSong }) => {
           onEnd={onEnd}
         />
       </Box>
-      <Center color="gray.600">
-        <ButtonGroup>
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="shuffle"
-            fontSize="24px"
-            icon={<MdShuffle />}
-            color={shuffle ? 'white' : 'gray.600'}
-            onClick={onShuffle}
-          />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="skip"
-            fontSize="24px"
-            icon={<MdSkipPrevious />}
-            onClick={prevSong}
-          />
+      <Center>
+        <ButtonGroup
+          sx={{
+            '& > *:hover, & > *:focus': {
+              color: 'whiteAlpha.900',
+            },
+          }}
+        >
+          <Tooltip
+            placement="top"
+            label="Shuffle"
+            aria-label="Shuffle"
+            hasArrow
+          >
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="shuffle"
+              fontSize="24px"
+              icon={<MdShuffle />}
+              color={shuffle ? 'white' : 'gray.600'}
+              onClick={onShuffle}
+            />
+          </Tooltip>
+
+          <Tooltip
+            placement="top"
+            label="Prev Song"
+            aria-label="Previous Song"
+            hasArrow
+          >
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="prev skip"
+              fontSize="24px"
+              icon={<MdSkipPrevious />}
+              onClick={prevSong}
+            />
+          </Tooltip>
           {playing ? (
             <IconButton
               outline="none"
@@ -162,31 +184,46 @@ const Player = ({ songs, activeSong }) => {
               onClick={() => setPlayState(true)}
             />
           )}
-
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="next"
-            fontSize="24px"
-            icon={<MdSkipNext />}
-            onClick={nextSong}
-          />
-          <IconButton
-            outline="none"
-            variant="link"
-            aria-label="repeat"
-            fontSize="24px"
-            icon={<MdOutlineRepeat />}
-            color={repeat ? 'white' : 'gray.600'}
-            onClick={onRepeat}
-          />
+          <Tooltip
+            placement="top"
+            label="Next Song"
+            aria-label="Next Song"
+            hasArrow
+          >
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="next song"
+              fontSize="24px"
+              icon={<MdSkipNext />}
+              onClick={nextSong}
+            />
+          </Tooltip>
+          <Tooltip
+            placement="top"
+            label="Repeat Song"
+            aria-label="Repeat Song"
+            hasArrow
+          >
+            <IconButton
+              outline="none"
+              variant="link"
+              aria-label="repeat song"
+              fontSize="24px"
+              icon={<MdOutlineRepeat />}
+              color={repeat ? 'white' : 'gray.600'}
+              onClick={onRepeat}
+            />
+          </Tooltip>
         </ButtonGroup>
       </Center>
 
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box w="10%">
-            <Text fontSize="x-small">{formatTime(seek)}</Text>
+            <Text fontSize="x-small" color="white">
+              {formatTime(seek)}
+            </Text>
           </Box>
           <Box w="80%">
             <RangeSlider
@@ -207,7 +244,7 @@ const Player = ({ songs, activeSong }) => {
             </RangeSlider>
           </Box>
           <Box w="10%">
-            <Text fontSize="xs" textAlign="right">
+            <Text fontSize="xs" textAlign="right" color="white">
               {formatTime(duration)}
             </Text>
           </Box>

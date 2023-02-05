@@ -1,17 +1,28 @@
 import { Box } from '@chakra-ui/layout';
+import { useStoreState } from 'easy-peasy';
+
 import PlayerBar from './playerBar';
 import Sidebar from './sidebar';
 
 const PlayerLayout = ({ children }) => {
+  const activeSong = useStoreState((state: any) => state.activeSong);
+
   return (
     <Box>
       <Sidebar>
         {/* PAGE CONTENT */}
-        <Box pb="14%">{children}</Box>
+        <Box>{children}</Box>
 
         {/* MUSIC PLAYER  */}
-        <Box position="fixed" left="0" bottom="0" zIndex={999}>
-          <PlayerBar />
+        <Box
+          pos="fixed"
+          left="0"
+          bottom="0"
+          transform={activeSong ? 'translateY(0)' : 'translateY(100%)'}
+          transition="ease-in-out 500ms"
+          zIndex={999}
+        >
+          <PlayerBar bg="black" />
         </Box>
       </Sidebar>
     </Box>

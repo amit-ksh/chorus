@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
+import { useStoreState } from 'easy-peasy';
 
 const GradientLayout = ({
   color,
@@ -10,8 +11,11 @@ const GradientLayout = ({
   description,
   roundImage,
 }) => {
+  const activeSong = useStoreState((state: any) => state.activeSong);
+
   return (
     <Box
+      pb={activeSong ? '10vh' : '2vh'}
       h="full"
       overflowY="auto"
       bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,0.95) 75%)`}
@@ -22,14 +26,21 @@ const GradientLayout = ({
             boxSize="160px"
             boxShadow="2xl"
             src={image}
-            borderRadius={roundImage ? '100%' : '3px'}
+            borderRadius={roundImage ? 'full' : '3px'}
           />
         </Box>
         <Box p="20px" lineHeight="40px" color="white">
-          <Text fontSize="x-small" fontWeight="bold" casing="uppercase">
+          <Text
+            fontSize="x-small"
+            fontWeight="bold"
+            letterSpacing="wide"
+            casing="uppercase"
+          >
             {subtitle}
           </Text>
-          <Text fontSize="6xl">{title}</Text>
+          <Text as="h1" fontSize="4xl">
+            {title}
+          </Text>
           <Text fontSize="x-small">{description}</Text>
         </Box>
       </Flex>
