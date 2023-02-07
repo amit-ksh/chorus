@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import {
@@ -7,8 +8,6 @@ import {
   MdFavorite,
   MdLibraryMusic,
 } from 'react-icons/md';
-
-import { ReactNode } from 'react';
 import {
   Box,
   CloseButton,

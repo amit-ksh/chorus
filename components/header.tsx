@@ -1,4 +1,7 @@
+import { FC } from 'react';
+import NextLink from 'next/link';
 import NextImage from 'next/image';
+import { useRouter } from 'next/router';
 import {
   IconButton,
   Avatar,
@@ -19,16 +22,14 @@ import {
   Skeleton,
 } from '@chakra-ui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
-import { useRouter } from 'next/router';
 
 import { useMe } from '../lib/hooks';
 import { auth } from '../lib/mutations';
-import NextLink from 'next/link';
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-const Header = ({ onOpen, ...rest }: MobileProps) => {
+const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
   const { user, isLoading } = useMe();
 
   const router = useRouter();

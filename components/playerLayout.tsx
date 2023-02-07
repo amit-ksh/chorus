@@ -1,10 +1,11 @@
-import { Box } from '@chakra-ui/layout';
+import { FC, ReactNode } from 'react';
+import { Box } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
 
 import PlayerBar from './playerBar';
 import Sidebar from './sidebar';
 
-const PlayerLayout = ({ children }) => {
+const PlayerLayout: FC<{ children: ReactNode }> = ({ children }) => {
   const activeSong = useStoreState((state: any) => state.activeSong);
 
   return (

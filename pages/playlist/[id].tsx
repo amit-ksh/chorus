@@ -3,7 +3,7 @@ import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 
-const getBGColor = (id) => {
+const getRandomBGColor = () => {
   const colors = [
     'red',
     'green',
@@ -17,11 +17,11 @@ const getBGColor = (id) => {
     'linkedin',
     'facebook',
   ];
-  return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
+  return colors[Math.floor(Math.random() * colors.length)];
 };
 
 const Playlist = ({ playlist }) => {
-  const color = getBGColor(playlist.id);
+  const color = getRandomBGColor();
 
   return (
     <GradientLayout

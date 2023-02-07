@@ -1,11 +1,31 @@
-import { Box } from '@chakra-ui/layout';
-import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { FC } from 'react';
+import {
+  Box,
+  IconButton,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { useStoreActions } from 'easy-peasy';
+
 import { formatDate, formatTime } from '../lib/formatter';
 
-const SongsTable = ({ songs }) => {
+interface SongsTableProps {
+  songs: Array<{
+    id: string;
+    name: string;
+    createdAt: Date;
+    duration: number;
+    url: string;
+  }>;
+}
+
+const SongsTable: FC<SongsTableProps> = ({ songs }) => {
   const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
   const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
 

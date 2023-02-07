@@ -1,3 +1,4 @@
+import { FC, ReactNode } from 'react';
 import {
   Box,
   Flex,
@@ -8,20 +9,18 @@ import {
 } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
 
-const LoadingSkeleton = () => {
-  return (
-    <>
-      <SkeletonCircle size="140px" />
-      <Box ml={6}>
-        <Skeleton w="60px" h={3} />
-        <Skeleton mt={6} mb={4} w="200px" h={10} />
-        <Skeleton w="90px" h={3} />
-      </Box>
-    </>
-  );
-};
+interface GradientLayoutProps {
+  children: ReactNode;
+  gradient: string;
+  image: string;
+  subtitle: string;
+  title: string;
+  description: string;
+  isLoading?: boolean;
+  roundImage: boolean;
+}
 
-const GradientLayout = ({
+const GradientLayout: FC<GradientLayoutProps> = ({
   gradient,
   children,
   image,
@@ -79,3 +78,16 @@ const GradientLayout = ({
 };
 
 export default GradientLayout;
+
+const LoadingSkeleton = () => {
+  return (
+    <>
+      <SkeletonCircle size="140px" />
+      <Box ml={6}>
+        <Skeleton w="60px" h={3} />
+        <Skeleton mt={6} mb={4} w="200px" h={10} />
+        <Skeleton w="90px" h={3} />
+      </Box>
+    </>
+  );
+};

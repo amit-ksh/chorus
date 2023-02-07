@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
+import ReactHowler from 'react-howler';
 import {
   ButtonGroup,
   IconButton,
@@ -12,7 +13,6 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react';
-import ReactHowler from 'react-howler';
 import {
   MdOutlinePauseCircleFilled,
   MdOutlinePlayCircleFilled,
@@ -22,9 +22,23 @@ import {
   MdSkipPrevious,
 } from 'react-icons/md';
 import { useStoreActions } from 'easy-peasy';
+
 import { formatTime } from '../lib/formatter';
 
-const Player = ({ songs, activeSong }) => {
+interface Song {
+  id: string;
+  name: string;
+  createdAt: Date;
+  duration: number;
+  url: string;
+}
+
+interface PlayerProps {
+  songs: Array<Song>;
+  activeSong: Song;
+}
+
+const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
   const [index, setIndex] = useState(
     songs.findIndex((s) => s.id === activeSong.id)
@@ -36,6 +50,7 @@ const Player = ({ songs, activeSong }) => {
   const [duration, setDuration] = useState(0.0);
   const soundRef = useRef(null);
   const repeatRef = useRef(repeat);
+
   const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
 
   useEffect(() => {

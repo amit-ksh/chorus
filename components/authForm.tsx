@@ -1,3 +1,5 @@
+import { FC, useState } from 'react';
+import { useRouter } from 'next/router';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import {
@@ -14,8 +16,6 @@ import {
   LinkBox,
   IconButton,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 import { auth } from '../lib/mutations';

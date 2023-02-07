@@ -1,21 +1,80 @@
 import NextLink from 'next/link';
 import {
   Box,
+  BoxProps,
   Flex,
-  Grid,
   GridItem,
-  GridProps,
   Img,
   LinkBox,
   LinkOverlay,
+  SimpleGrid,
+  SimpleGridProps,
   Skeleton,
-  SkeletonCircle,
   SkeletonText,
   Text,
 } from '@chakra-ui/react';
 
 import { usePlaylist } from '../lib/hooks';
 import { formatDate } from '../lib/formatter';
+
+export default function Playlists(props: SimpleGridProps) {
+  const { playlists, isLoading } = usePlaylist();
+
+  return (
+    <SimpleGrid columns={[1, 2, 1, 2]} gap={4} {...props}>
+      {isLoading
+        ? [1, 2, 3, 4, 5, 6].map((n) => <PlaylistSkeleton key={n} />)
+        : playlists.map((playlist) => (
+            <GridItem key={playlist.id}>
+              <PlaylistCard
+                as={LinkBox}
+                playlist={playlist}
+                transition="transform 300ms"
+                _hover={{ transform: 'scale(1.05)' }}
+                _focusWithin={{ transform: 'scale(1.05)' }}
+              />
+            </GridItem>
+          ))}
+    </SimpleGrid>
+  );
+}
+
+interface PlaylistCardProps extends BoxProps {
+  playlist: {
+    id: string;
+    name: string;
+    updatedAt: Date;
+  };
+}
+
+const PlaylistCard = ({ playlist, ...rest }: PlaylistCardProps) => {
+  return (
+    <Box pl="2" borderRadius="4px" bg="green.400" {...rest}>
+      <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
+        <Box>
+          <Img
+            boxSize="16"
+            src={`https://picsum.photos/400?random=${playlist.id}`}
+            borderRadius="3px"
+            boxShadow="2px 1px 5px var(--chakra-colors-green-400)"
+          />
+        </Box>
+        <Box ml={6}>
+          <LinkOverlay as={NextLink} href={`playlist/${playlist.id}`}>
+            <Text fontSize="1.3em">{playlist.name}</Text>
+          </LinkOverlay>
+
+          <Text fontSize="x-small">
+            <Text as="span" fontWeight="semibold">
+              Updated At:
+            </Text>{' '}
+            {formatDate(playlist.updatedAt).split('T')[0]}
+          </Text>
+        </Box>
+      </Flex>
+    </Box>
+  );
+};
 
 const PlaylistSkeleton = () => {
   return (
@@ -40,59 +99,3 @@ const PlaylistSkeleton = () => {
     </Box>
   );
 };
-
-const Playlists = (props: GridProps) => {
-  const { playlists, isLoading } = usePlaylist();
-
-  return (
-    <Grid
-      gridTemplateColumns={{
-        base: '1fr',
-        sm: '1fr 1fr',
-        md: '1fr',
-        lg: '1fr 1fr',
-      }}
-      gap={3}
-      {...props}
-    >
-      {isLoading
-        ? [1, 2, 3, 4, 5, 6].map((n) => <PlaylistSkeleton key={n} />)
-        : playlists.map((playlist) => (
-            <GridItem key={playlist.id}>
-              <LinkBox pl="2" borderRadius="4px" bg="green.400">
-                <Flex
-                  align="center"
-                  bg="gray.900"
-                  borderRadius="4px"
-                  px="4"
-                  py="2"
-                >
-                  <Box>
-                    <Img
-                      boxSize="16"
-                      src={`https://picsum.photos/400?random=${playlist.id}`}
-                      borderRadius="3px"
-                      boxShadow="2px 1px 5px var(--chakra-colors-green-400)"
-                    />
-                  </Box>
-                  <Box ml={6}>
-                    <LinkOverlay as={NextLink} href={`playlist/${playlist.id}`}>
-                      <Text fontSize="1.3em">{playlist.name}</Text>
-                    </LinkOverlay>
-
-                    <Text fontSize="x-small">
-                      <Text as="span" fontWeight="semibold">
-                        Updated At:
-                      </Text>{' '}
-                      {formatDate(playlist.updatedAt).split('T')[0]}
-                    </Text>
-                  </Box>
-                </Flex>
-              </LinkBox>
-            </GridItem>
-          ))}
-    </Grid>
-  );
-};
-
-export default Playlists;
