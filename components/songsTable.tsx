@@ -19,9 +19,9 @@ const SongsTable = ({ songs }) => {
       <Box p="10px" mb="20px">
         <Box mb="30px">
           <IconButton
-            icon={<BsFillPlayFill fontSize="30px" />}
+            icon={<BsFillPlayFill color="black" fontSize="30px" />}
             aria-label="play"
-            colorScheme="green"
+            bg="#1ed760"
             size="lg"
             isRound
             onClick={() => handlePlay()}

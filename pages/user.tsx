@@ -4,7 +4,7 @@ import GradientLayout from '../components/gradientLayout';
 import Playlists from '../components/playlists';
 import { useMe } from '../lib/hooks';
 
-const Home = () => {
+const User = () => {
   const { user, isLoading } = useMe();
 
   return (
@@ -32,4 +32,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default User;

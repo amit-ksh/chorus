@@ -14,18 +14,22 @@ import {
   VStack,
   Box,
   Text,
+  Link,
+  SkeletonCircle,
+  Skeleton,
 } from '@chakra-ui/react';
 import { FiChevronDown, FiMenu } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 
 import { useMe } from '../lib/hooks';
 import { auth } from '../lib/mutations';
+import NextLink from 'next/link';
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const Header = ({ onOpen, ...rest }: MobileProps) => {
-  const { user } = useMe();
+  const { user, isLoading } = useMe();
 
   const router = useRouter();
 
@@ -88,10 +92,14 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
           }}
         >
           <HStack>
-            <Avatar
-              size="sm"
-              src={`https://picsum.photos/400?random=${user?.id}`}
-            />
+            {isLoading ? (
+              <SkeletonCircle />
+            ) : (
+              <Avatar
+                size="sm"
+                src={`https://picsum.photos/400?random=${user?.id}`}
+              />
+            )}
 
             <VStack
               display={{ base: 'none', md: 'flex' }}
@@ -100,7 +108,11 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
               spacing="1px"
               ml="2"
             >
-              <Text fontSize="sm">{user?.firstName || ''}</Text>
+              {isLoading ? (
+                <Skeleton w="75px" h={6} />
+              ) : (
+                <Text fontSize="sm">{user?.firstName || ''}</Text>
+              )}
             </VStack>
             <Box display={{ base: 'none', md: 'flex' }}>
               <FiChevronDown />
@@ -121,7 +133,9 @@ const Header = ({ onOpen, ...rest }: MobileProps) => {
           }}
         >
           <MenuItem _hover={{ bg: 'green.400' }} _focus={{ bg: 'green.400' }}>
-            Profile
+            <Link as={NextLink} href="/user" _hover={{ textDecor: 'none' }}>
+              Profile
+            </Link>
           </MenuItem>
           <MenuDivider />
           <MenuItem

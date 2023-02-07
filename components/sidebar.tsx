@@ -47,7 +47,7 @@ const LinkItems: Array<LinkItemProps> = [
   {
     name: 'Your Library',
     icon: MdLibraryMusic,
-    route: '/library',
+    route: '/user#playlists',
   },
 ];
 
@@ -96,7 +96,7 @@ export default function SidebarWithHeader({
       </Drawer>
 
       {/* HEADER */}
-      <Header tabIndex={0} onOpen={onOpen} />
+      <Header onOpen={onOpen} />
 
       {/* BODY */}
       <Box ml={{ base: 0, md: 60 }}>{children}</Box>
@@ -158,16 +158,17 @@ const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
     <LinkBox>
       <LinkOverlay
         as={NextLink}
+        fontWeight="semibold"
         display="flex"
         alignItems="center"
         p="4"
         mx="4"
         borderRadius="lg"
-        href={route}
         _hover={{
           bg: 'green.500',
           color: 'white',
         }}
+        href={route}
         passHref
       >
         <Flex align="center" role="group" cursor="pointer" {...rest}>

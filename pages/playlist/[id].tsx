@@ -4,7 +4,19 @@ import { validateToken } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 
 const getBGColor = (id) => {
-  const colors = ['red', 'green', 'orange', 'purple', 'gray', 'teal', 'yellow'];
+  const colors = [
+    'red',
+    'green',
+    'orange',
+    'purple',
+    'teal',
+    'yellow',
+    'messenger',
+    'twitter',
+    'telegram',
+    'linkedin',
+    'facebook',
+  ];
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
 };
 
@@ -13,7 +25,7 @@ const Playlist = ({ playlist }) => {
 
   return (
     <GradientLayout
-      color={color}
+      gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
       title={playlist.name}
       subtitle="Playlist"
       description={`${playlist.songs.length} songs`}
