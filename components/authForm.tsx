@@ -15,6 +15,7 @@ import {
   Link,
   LinkBox,
   IconButton,
+  useToast,
 } from '@chakra-ui/react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -30,6 +31,8 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const toast = useToast();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,10 +40,29 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
     if (mode === 'signup' && (!firstName || !lastName)) return;
 
     setIsLoading(true);
-    // returns user
-    await auth(mode, { email, password, firstName, lastName });
-    setIsLoading(false);
-    router.push('/user');
+    try {
+      const response = await auth(mode, {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+      if (response.error) {
+        throw new Error(response.error);
+      } else {
+        router.push('/user');
+      }
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: 'error',
+        duration: 5 * 1000,
+        variant: 'top-accent',
+        position: 'top-left',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

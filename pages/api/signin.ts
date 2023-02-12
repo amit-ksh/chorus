@@ -6,12 +6,19 @@ import prisma from '../../lib/prisma';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body;
+  let user;
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: 'Server Error! Please try again later.' });
+  }
 
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = jwt.sign(

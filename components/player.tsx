@@ -39,7 +39,7 @@ interface PlayerProps {
 }
 
 const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState<boolean>(false);
   const [index, setIndex] = useState(
     songs.findIndex((s) => s.id === activeSong.id)
   );
@@ -51,7 +51,13 @@ const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
   const soundRef = useRef(null);
   const repeatRef = useRef(repeat);
 
-  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
+  const setActiveSong = useStoreActions(
+    (actions: any) => actions.changeActiveSong
+  );
+
+  useEffect(() => setPlaying(true), []);
+
+  useEffect(() => setPlaying(true), [activeSong]);
 
   useEffect(() => {
     let timerId;
