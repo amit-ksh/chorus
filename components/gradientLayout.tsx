@@ -6,6 +6,7 @@ import {
   Image,
   SkeletonCircle,
   Skeleton,
+  Heading,
 } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
 
@@ -35,6 +36,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
   return (
     <Box
       pb={activeSong ? '10vh' : '2vh'}
+      minH="90vh"
       h="full"
       overflowY="auto"
       bgGradient={gradient}
@@ -64,9 +66,9 @@ const GradientLayout: FC<GradientLayoutProps> = ({
               >
                 {subtitle}
               </Text>
-              <Text as="h1" fontSize={{ base: '3xl', sm: '4xl' }}>
+              <Heading as="h1" fontSize={{ base: '3xl', sm: '4xl' }}>
                 {title}
-              </Text>
+              </Heading>
               <Text fontSize="x-small">{description}</Text>
             </Box>
           </>

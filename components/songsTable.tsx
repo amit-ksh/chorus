@@ -26,8 +26,12 @@ interface SongsTableProps {
 }
 
 const SongsTable: FC<SongsTableProps> = ({ songs }) => {
-  const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
-  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+  const playSongs = useStoreActions(
+    (actions: any) => actions.changeActiveSongs
+  );
+  const setActiveSong = useStoreActions(
+    (actions: any) => actions.changeActiveSong
+  );
 
   const handlePlay = (activeSong?) => {
     setActiveSong(activeSong || songs[0]);

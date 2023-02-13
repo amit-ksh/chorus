@@ -47,7 +47,7 @@ interface PlaylistCardProps extends BoxProps {
   };
 }
 
-const PlaylistCard = ({ playlist, ...rest }: PlaylistCardProps) => {
+export const PlaylistCard = ({ playlist, ...rest }: PlaylistCardProps) => {
   return (
     <Box pl="2" borderRadius="4px" bg="green.400" {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
@@ -76,9 +76,9 @@ const PlaylistCard = ({ playlist, ...rest }: PlaylistCardProps) => {
   );
 };
 
-const PlaylistSkeleton = () => {
+export const PlaylistSkeleton = (props: BoxProps) => {
   return (
-    <Box pl="2" borderRadius="4px" bg="green.400">
+    <Box pl="2" borderRadius="4px" bg="green.400" {...props}>
       <Flex align="center" bg="gray.900" borderRadius="4px" py="3" px="4">
         <Skeleton w={16} h={16} borderRadius="4px" />
         <Box w="70%" ml={6}>
