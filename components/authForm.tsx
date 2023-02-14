@@ -146,10 +146,10 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               <Button
                 mt={2}
                 type="submit"
-                bg="green.500"
+                bg="purple.500"
                 isLoading={isLoading}
                 _hover={{
-                  bg: 'green.300',
+                  bg: 'purple.600',
                 }}
               >
                 {mode === 'signin' ? 'Sign In' : 'Sign Up'}
@@ -162,7 +162,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               OR
             </Box>
             <LinkBox
-              color="green.400"
+              color="purple.400"
               fontWeight="semibold"
               textDecoration="underline"
             >

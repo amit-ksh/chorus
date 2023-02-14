@@ -24,13 +24,16 @@ export default function Playlists(props: SimpleGridProps) {
   return (
     <SimpleGrid columns={[1, 2, 1, 2]} gap={4} {...props}>
       {isLoading
-        ? [1, 2, 3, 4, 5, 6].map((n) => <PlaylistSkeleton key={n} />)
+        ? [1, 2, 3, 4, 5, 6].map((n) => (
+            <PlaylistSkeleton key={n} bgColor="green" />
+          ))
         : playlists.map((playlist) => (
             <GridItem key={playlist.id}>
               <PlaylistCard
                 as={LinkBox}
                 playlist={playlist}
                 transition="transform 300ms"
+                bgColor="green"
                 _hover={{ transform: 'scale(1.05)' }}
                 _focusWithin={{ transform: 'scale(1.05)' }}
               />
@@ -46,23 +49,23 @@ interface PlaylistCardProps extends BoxProps {
     name: string;
     updatedAt: Date;
   };
-  borderColor?: ChakraProps['borderColor'];
+  bgColor?: ChakraProps['color'];
 }
 
 export const PlaylistCard = ({
   playlist,
-  borderColor = 'green',
+  bgColor = 'purple',
   ...rest
 }: PlaylistCardProps) => {
   return (
-    <Box pl="2" borderRadius="4px" bg={`${borderColor}.500`} {...rest}>
+    <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
         <Box>
           <Img
             boxSize="16"
             src={`https://picsum.photos/400?random=${playlist.id}`}
             borderRadius="3px"
-            boxShadow={`2px 1px 5px var(--chakra-colors-${borderColor}-400)`}
+            boxShadow={`2px 1px 5px var(--chakra-colors-${bgColor}-400)`}
           />
         </Box>
         <Box ml={6}>
@@ -82,9 +85,14 @@ export const PlaylistCard = ({
   );
 };
 
-export const PlaylistSkeleton = (props: BoxProps) => {
+export const PlaylistSkeleton = ({
+  bgColor = 'purple',
+  ...rest
+}: {
+  bgColor?: ChakraProps['color'];
+}) => {
   return (
-    <Box pl="2" borderRadius="4px" bg="green.400" {...props}>
+    <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" py="3" px="4">
         <Skeleton w={16} h={16} borderRadius="4px" />
         <Box w="70%" ml={6}>

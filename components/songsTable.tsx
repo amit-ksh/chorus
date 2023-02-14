@@ -45,7 +45,9 @@ const SongsTable: FC<SongsTableProps> = ({ songs }) => {
           <IconButton
             icon={<BsFillPlayFill color="black" fontSize="30px" />}
             aria-label="play"
-            bg="#1ed760"
+            bg="purple.500"
+            _hover={{ bg: 'purple.400' }}
+            _focus={{ bg: 'purple.400' }}
             size="lg"
             isRound
             onClick={() => handlePlay()}
