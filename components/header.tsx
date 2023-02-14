@@ -55,9 +55,9 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
       {...rest}
     >
       <IconButton
-        color="green.500"
+        color="purple.500"
         borderWidth="3px"
-        borderColor="green.400"
+        borderColor="purple.400"
         borderRadius="50%"
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -65,7 +65,7 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         _hover={{
           color: 'white',
-          bg: 'green.500',
+          bg: 'purple.500',
         }}
         icon={<FiMenu />}
       />
@@ -86,10 +86,10 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
           transition="all 0.3s"
           borderRadius="full"
           _hover={{
-            boxShadow: '0 0 4px 2px var(--chakra-colors-green-400)',
+            boxShadow: '0 0 4px 2px var(--chakra-colors-purple-400)',
           }}
           _focus={{
-            boxShadow: '0 0 4px 2px var(--chakra-colors-green-400)',
+            boxShadow: '0 0 4px 2px var(--chakra-colors-purple-400)',
           }}
         >
           <HStack>
@@ -125,7 +125,7 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
           mr={2}
           px={2}
           bg="black"
-          boxShadow="-1px -1px 4px 0 var(--chakra-colors-gray-400)"
+          boxShadow="-1px -1px 4px 0 var(--chakra-colors-purple-400)"
           sx={{
             button: {
               bg: 'black',
@@ -133,7 +133,7 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
             },
           }}
         >
-          <MenuItem _hover={{ bg: 'green.400' }} _focus={{ bg: 'green.400' }}>
+          <MenuItem _hover={{ bg: 'purple.400' }} _focus={{ bg: 'purple.400' }}>
             <Link as={NextLink} href="/user" _hover={{ textDecor: 'none' }}>
               Profile
             </Link>

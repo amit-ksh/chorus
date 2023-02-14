@@ -26,6 +26,7 @@ import {
 import { IconType } from 'react-icons';
 
 import Header from './header';
+import { useRouter } from 'next/router';
 
 interface LinkItemProps {
   name: string;
@@ -54,7 +55,7 @@ const musicMenu: Array<LinkItemProps> = [
   {
     name: 'Create Playlist',
     icon: MdPlaylistAdd,
-    route: '/',
+    route: '/playlist/create',
   },
   {
     name: 'Favorites',
@@ -153,21 +154,29 @@ interface NavItemProps extends FlexProps {
   children: ReactNode;
 }
 const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
+  const router = useRouter();
+
   return (
     <LinkBox>
       <LinkOverlay
         as={NextLink}
+        href={route}
         fontWeight="semibold"
         display="flex"
         alignItems="center"
         p="4"
         mx="4"
+        my={2}
         borderRadius="lg"
         _hover={{
-          bg: 'green.500',
+          bg: 'purple.400',
           color: 'white',
         }}
-        href={route}
+        _focus={{
+          bg: 'purple.400',
+          color: 'white',
+        }}
+        bg={router.pathname === route && 'purple.500'}
         passHref
       >
         <Flex align="center" role="group" cursor="pointer" {...rest}>

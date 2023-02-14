@@ -2,6 +2,7 @@ import NextLink from 'next/link';
 import {
   Box,
   BoxProps,
+  ChakraProps,
   Flex,
   GridItem,
   Img,
@@ -45,18 +46,23 @@ interface PlaylistCardProps extends BoxProps {
     name: string;
     updatedAt: Date;
   };
+  borderColor?: ChakraProps['borderColor'];
 }
 
-export const PlaylistCard = ({ playlist, ...rest }: PlaylistCardProps) => {
+export const PlaylistCard = ({
+  playlist,
+  borderColor = 'green',
+  ...rest
+}: PlaylistCardProps) => {
   return (
-    <Box pl="2" borderRadius="4px" bg="green.400" {...rest}>
+    <Box pl="2" borderRadius="4px" bg={`${borderColor}.500`} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
         <Box>
           <Img
             boxSize="16"
             src={`https://picsum.photos/400?random=${playlist.id}`}
             borderRadius="3px"
-            boxShadow="2px 1px 5px var(--chakra-colors-green-400)"
+            boxShadow={`2px 1px 5px var(--chakra-colors-${borderColor}-400)`}
           />
         </Box>
         <Box ml={6}>

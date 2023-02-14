@@ -16,6 +16,7 @@ interface ILinkCardProps {
     name: string;
     url: string;
   };
+  link: string;
   imageSize: LayoutProps['boxSize'];
   roundImage?: boolean;
 }
@@ -24,6 +25,7 @@ const LinkCard: FC<ILinkCardProps> = ({
   linkData,
   imageSize,
   roundImage = false,
+  link,
 }) => {
   return (
     <Grid
@@ -45,7 +47,7 @@ const LinkCard: FC<ILinkCardProps> = ({
           src={`https://picsum.photos/400?random=${linkData.id}`}
         />
       </Box>
-      <LinkOverlay as={NextLink} href={`artist/${linkData.id}`}>
+      <LinkOverlay as={NextLink} href={link}>
         <Heading
           as="h3"
           lineHeight={2}

@@ -1,21 +1,19 @@
-import NextLink from 'next/link';
+import { FC, ReactNode } from 'react';
 import {
   Box,
-  Grid,
   Heading,
-  Img,
-  LayoutProps,
   LinkBox,
-  LinkOverlay,
+  SimpleGrid,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
-import { PlaylistCard, PlaylistSkeleton } from '../components/playlists';
+
 import { validateToken } from '../lib/auth';
 import { usePlaylist } from '../lib/hooks';
 import prisma from '../lib/prisma';
-import { FC, ReactNode } from 'react';
+
+import { PlaylistCard, PlaylistSkeleton } from '../components/playlists';
 import LinkCard from '../components/linkcard';
 
 const greeting = () => {
@@ -58,6 +56,7 @@ const Home = ({ artists, songs, playlists }) => {
               minW="310px"
               maxW="360px"
               w="40vw"
+              borderColor="purple"
               transition="transform 300ms"
               _hover={{ transform: 'scale(1.05)' }}
               _focusWithin={{ transform: 'scale(1.05)' }}
@@ -73,6 +72,7 @@ const Home = ({ artists, songs, playlists }) => {
         {artists.map((artist) => (
           <LinkCard
             key={artist.id}
+            link={`/artist/${artist.id}`}
             linkData={artist}
             imageSize="145px"
             roundImage={true}
@@ -83,14 +83,24 @@ const Home = ({ artists, songs, playlists }) => {
       {/* SONGS */}
       <PageSection title="Top Songs">
         {songs.map((song) => (
-          <LinkCard key={song.id} linkData={song} imageSize="148px" />
+          <LinkCard
+            key={song.id}
+            link={`/song/${song.id}`}
+            linkData={song}
+            imageSize="148px"
+          />
         ))}
       </PageSection>
 
       {/* Playlists */}
       <PageSection title="Top Playlists">
         {playlists.map((playlist) => (
-          <LinkCard key={playlist.id} linkData={playlist} imageSize="148px" />
+          <LinkCard
+            key={playlist.id}
+            link={`/playlist/${playlist.id}`}
+            linkData={playlist}
+            imageSize="148px"
+          />
         ))}
       </PageSection>
     </Box>
@@ -130,14 +140,8 @@ const PageSection: FC<{ title: string; children: ReactNode }> = ({
     <Heading as="h2" fontWeight="bold" fontSize={{ base: 'xl', sm: '2xl' }}>
       {title}
     </Heading>
-    <Grid
-      templateColumns="repeat(10, 1fr)"
-      templateRows="1fr"
-      overflowX="auto"
-      gap={6}
-      maxW="100%"
-    >
+    <SimpleGrid columns={[2, 2, 3, 3, 4, 5]} gap={6} pb={2}>
       {children}
-    </Grid>
+    </SimpleGrid>
   </VStack>
 );
