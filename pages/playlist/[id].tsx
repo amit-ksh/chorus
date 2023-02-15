@@ -2,23 +2,7 @@ import GradientLayout from '../../components/gradientLayout';
 import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
 import prisma from '../../lib/prisma';
-
-const getRandomBGColor = () => {
-  const colors = [
-    'red',
-    'green',
-    'telegram',
-    'orange',
-    'purple',
-    'linkedin',
-    'teal',
-    'facebook',
-    'yellow',
-    'messenger',
-    'twitter',
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-};
+import { getRandomBGColor } from '../../lib/utils';
 
 const Playlist = ({ playlist }) => {
   const color = getRandomBGColor();

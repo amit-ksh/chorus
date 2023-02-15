@@ -37,6 +37,7 @@ const LinkCard: FC<ILinkCardProps> = ({
       borderRadius="md"
       transition="background-color 0.3s ease"
       _hover={{ bg: 'purple.600' }}
+      _focus={{ bg: 'purple.600' }}
     >
       <Box w="full" mb={6}>
         <Img
@@ -45,16 +46,11 @@ const LinkCard: FC<ILinkCardProps> = ({
           borderRadius={roundImage ? 'full' : 'md'}
           boxShadow="0 8px 20px rgb(0 0 0 / 60%)"
           src={`https://picsum.photos/400?random=${linkData.id}`}
+          alt={linkData.name}
         />
       </Box>
       <LinkOverlay as={NextLink} href={link}>
-        <Heading
-          as="h3"
-          lineHeight={2}
-          fontSize="md"
-          fontWeight="medium"
-          textAlign="start"
-        >
+        <Heading as="h3" lineHeight={2} fontSize="md" fontWeight="medium">
           {linkData.name}
         </Heading>
       </LinkOverlay>

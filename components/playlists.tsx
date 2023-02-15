@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import NextLink from 'next/link';
 import {
   Box,
@@ -85,11 +86,9 @@ export const PlaylistCard = ({
   );
 };
 
-export const PlaylistSkeleton = ({
-  bgColor = 'purple',
+export const PlaylistSkeleton: FC<Omit<PlaylistCardProps, 'playlist'>> = ({
+  bgColor,
   ...rest
-}: {
-  bgColor?: ChakraProps['color'];
 }) => {
   return (
     <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
