@@ -35,13 +35,16 @@ const Home = ({ artists, songs, playlists }) => {
 
   return (
     <Box
+      as="main"
       pb={activeSong ? '10vh' : '2vh'}
       minH="90vh"
+      color="white"
       overflowY="auto"
+      bg="gray.800"
       bgGradient={
         'linear(40deg, purple.400 0%, purple.800 30%, rgba(0,0,0,0.6) 100%)'
       }
-      transition="background 0.5s"
+      bgAttachment="fixed"
     >
       {/* USER'S PLAYLIST */}
       <VStack as="section" py={5} px={10} spacing={4} align="flex-start">
@@ -140,7 +143,7 @@ const PageSection: FC<{ title: string; children: ReactNode }> = ({
     <Heading as="h2" fontWeight="bold" fontSize={{ base: 'xl', sm: '2xl' }}>
       {title}
     </Heading>
-    <SimpleGrid columns={[2, 2, 3, 3, 4, 5]} gap={6} pb={2}>
+    <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} pb={2}>
       {children}
     </SimpleGrid>
   </VStack>

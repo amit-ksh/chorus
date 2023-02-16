@@ -34,7 +34,6 @@ export default function Playlists(props: SimpleGridProps) {
                 as={LinkBox}
                 playlist={playlist}
                 transition="transform 300ms"
-                bgColor="green"
                 _hover={{ transform: 'scale(1.05)' }}
                 _focusWithin={{ transform: 'scale(1.05)' }}
               />
@@ -55,11 +54,11 @@ interface PlaylistCardProps extends BoxProps {
 
 export const PlaylistCard = ({
   playlist,
-  bgColor = 'purple',
+  bgColor = 'purple.500',
   ...rest
 }: PlaylistCardProps) => {
   return (
-    <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
+    <Box pl="2" borderRadius="4px" bg={`${bgColor}`} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
         <Box>
           <Img
@@ -71,7 +70,9 @@ export const PlaylistCard = ({
         </Box>
         <Box ml={6}>
           <LinkOverlay as={NextLink} href={`playlist/${playlist.id}`}>
-            <Text fontSize="1.3em">{playlist.name}</Text>
+            <Text fontSize="1.3em" color="white">
+              {playlist.name}
+            </Text>
           </LinkOverlay>
 
           <Text fontSize="x-small">

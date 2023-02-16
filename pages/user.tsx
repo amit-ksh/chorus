@@ -9,8 +9,9 @@ const User = () => {
 
   return (
     <GradientLayout
+      as="main"
       gradient={
-        'linear(40deg, green.400 0%, green.800 30%, rgba(0,0,0,0.6) 100%)'
+        'linear(40deg, purple.400 0%, purple.800 30%, rgba(0,0,0,0.6) 100%)'
       }
       subtitle="profile"
       title={`${user?.firstName} ${user?.lastName}`}

@@ -7,10 +7,11 @@ import {
   SkeletonCircle,
   Skeleton,
   Heading,
+  BoxProps,
 } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
 
-interface GradientLayoutProps {
+interface GradientLayoutProps extends BoxProps {
   children: ReactNode;
   gradient: string;
   image: string;
@@ -30,6 +31,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
   description,
   isLoading = false,
   roundImage,
+  ...rest
 }) => {
   const activeSong = useStoreState((state: any) => state.activeSong);
 
@@ -39,7 +41,9 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       minH="89.4vh"
       h="full"
       overflowY="auto"
+      background="gray.800"
       bgGradient={gradient}
+      {...rest}
     >
       <Flex p="40px" align="center">
         {isLoading ? (

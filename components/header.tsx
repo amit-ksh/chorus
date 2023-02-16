@@ -133,8 +133,19 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
             },
           }}
         >
-          <MenuItem _hover={{ bg: 'purple.400' }} _focus={{ bg: 'purple.400' }}>
-            <Link as={NextLink} href="/user" _hover={{ textDecor: 'none' }}>
+          <MenuItem
+            p={0}
+            _hover={{ bg: 'purple.400' }}
+            _focus={{ bg: 'purple.400' }}
+          >
+            <Link
+              as={NextLink}
+              href="/user"
+              w="full"
+              py={1.5}
+              px={3}
+              _hover={{ textDecor: 'none' }}
+            >
               Profile
             </Link>
           </MenuItem>
