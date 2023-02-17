@@ -46,37 +46,51 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       {...rest}
     >
       <Flex p="40px" align="center">
-        {isLoading ? (
-          <LoadingSkeleton />
-        ) : (
-          <>
-            <Box>
-              <Image
-                boxSize={['100px', '140px']}
-                maxW="160px"
-                maxH="160px"
-                boxShadow="2xl"
-                src={image}
-                borderRadius={roundImage ? 'full' : '3px'}
-              />
-            </Box>
+        <SkeletonCircle
+          size={['100px', '140px']}
+          isLoaded={!isLoading}
+          fadeDuration={1.2}
+        >
+          <Image
+            boxSize="full"
+            boxShadow="2xl"
+            src={image}
+            borderRadius={roundImage ? 'full' : '3px'}
+          />
+        </SkeletonCircle>
 
-            <Box p="20px" lineHeight="40px" color="white">
-              <Text
-                fontSize="x-small"
-                fontWeight="bold"
-                letterSpacing="wide"
-                casing="uppercase"
-              >
-                {subtitle}
-              </Text>
-              <Heading as="h1" fontSize={{ base: '3xl', sm: '4xl' }}>
-                {title}
-              </Heading>
-              <Text fontSize="x-small">{description}</Text>
-            </Box>
-          </>
-        )}
+        <Flex
+          direction="column"
+          justify="center"
+          align="flex-start"
+          p="20px"
+          color="white"
+        >
+          <Skeleton w="80px" h={3} isLoaded={!isLoading} fadeDuration={1.2}>
+            <Text
+              fontSize="x-small"
+              fontWeight="bold"
+              letterSpacing="wide"
+              casing="uppercase"
+            >
+              {subtitle}
+            </Text>
+          </Skeleton>
+          <Skeleton
+            mb={4}
+            mt={2}
+            h={10}
+            isLoaded={!isLoading}
+            fadeDuration={1.2}
+          >
+            <Heading as="h1" fontSize={{ base: '2xl', sm: '4xl' }}>
+              {title}
+            </Heading>
+          </Skeleton>
+          <Skeleton w="120px" h={3} isLoaded={!isLoading} fadeDuration={1.2}>
+            <Text fontSize="x-small">{description}</Text>
+          </Skeleton>
+        </Flex>
       </Flex>
       <Box py="50px">{children}</Box>
     </Box>
@@ -84,16 +98,3 @@ const GradientLayout: FC<GradientLayoutProps> = ({
 };
 
 export default GradientLayout;
-
-const LoadingSkeleton = () => {
-  return (
-    <>
-      <SkeletonCircle size="140px" />
-      <Box ml={6}>
-        <Skeleton w="60px" h={3} />
-        <Skeleton mt={6} mb={4} w="200px" h={10} />
-        <Skeleton w="90px" h={3} />
-      </Box>
-    </>
-  );
-};

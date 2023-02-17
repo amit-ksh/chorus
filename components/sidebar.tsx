@@ -134,13 +134,23 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
       {/* LINKS */}
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          route={link.route}
+          onClose={onClose}
+        >
           {link.name}
         </NavItem>
       ))}
       <Divider my={4} />
       {musicMenu.map((link) => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          route={link.route}
+          onClose={onClose}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -152,20 +162,21 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   route: string;
   children: ReactNode;
+  onClose: () => null;
 }
-const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, route, children, onClose, ...rest }: NavItemProps) => {
   const router = useRouter();
 
   return (
-    <LinkBox>
+    <LinkBox onClick={onClose}>
       <LinkOverlay
         as={NextLink}
         href={route}
         fontWeight="semibold"
         display="flex"
         alignItems="center"
-        p="4"
-        mx="4"
+        p={4}
+        mx={4}
         my={2}
         borderRadius="lg"
         _hover={{

@@ -49,8 +49,9 @@ const LinkCard: FC<ILinkCardProps> = ({
           alt={linkData.name}
         />
       </Box>
+
       <LinkOverlay as={NextLink} href={link}>
-        <Heading as="h3" lineHeight={2} fontSize="md" fontWeight="medium">
+        <Heading as="h3" fontSize="md" fontWeight="medium">
           {linkData.name}
         </Heading>
       </LinkOverlay>

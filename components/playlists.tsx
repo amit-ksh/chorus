@@ -94,15 +94,26 @@ export const PlaylistSkeleton: FC<Omit<PlaylistCardProps, 'playlist'>> = ({
   return (
     <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" py="3" px="4">
-        <Skeleton w={16} h={16} borderRadius="4px" />
+        <Skeleton
+          startColor="gray.600"
+          endColor="gray.900"
+          speed={1.8}
+          w={16}
+          h={16}
+          borderRadius="4px"
+        />
         <Box w="70%" ml={6}>
           <SkeletonText
-            fadeDuration={4}
+            startColor="gray.600"
+            endColor="gray.900"
+            speed={1.8}
             skeletonHeight="2.5rem"
             noOfLines={1}
           />
           <SkeletonText
-            fadeDuration={4}
+            startColor="gray.600"
+            endColor="gray.900"
+            speed={2}
             mt={1}
             w="70%"
             skeletonHeight="8px"
