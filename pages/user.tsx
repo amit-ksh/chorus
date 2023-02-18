@@ -2,6 +2,7 @@ import { Box, Heading } from '@chakra-ui/react';
 
 import GradientLayout from '../components/gradientLayout';
 import Playlists from '../components/playlists';
+import { Profile } from '../components/Profile';
 import { useMe } from '../lib/hooks';
 
 const User = () => {
@@ -13,14 +14,18 @@ const User = () => {
       gradient={
         'linear(40deg, purple.400 0%, purple.800 30%, rgba(0,0,0,0.6) 100%)'
       }
-      subtitle="profile"
-      title={`${user?.firstName} ${user?.lastName}`}
-      description={`${user?.playlistsCount} public playlist`}
-      image={`https://picsum.photos/400?random=${user?.id}`}
-      isLoading={isLoading}
-      roundImage
     >
-      <Box color="white" px="40px">
+      <Profile
+        subtitle="profile"
+        title={`${user?.firstName} ${user?.lastName}`}
+        description={`${user?.playlistsCount} public playlist`}
+        image={`https://picsum.photos/400?random=${user?.id}`}
+        isLoading={isLoading}
+        roundImage
+        m={10}
+      />
+
+      <Box color="white" px="40px" mt={8}>
         <Box mb="40px">
           <Heading fontSize="2xl" fontWeight="bold" mb={4}>
             Your Playlists

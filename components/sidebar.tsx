@@ -162,7 +162,7 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   route: string;
   children: ReactNode;
-  onClose: () => null;
+  onClose: () => void;
 }
 const NavItem = ({ icon, route, children, onClose, ...rest }: NavItemProps) => {
   const router = useRouter();
