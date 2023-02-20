@@ -26,7 +26,7 @@ export default function Playlists(props: SimpleGridProps) {
     <SimpleGrid columns={[1, 2, 1, 2]} gap={4} {...props}>
       {isLoading
         ? [1, 2, 3, 4, 5, 6].map((n) => (
-            <PlaylistSkeleton key={n} bgColor="green" />
+            <PlaylistSkeleton key={n} bgColor="whiteAlpha" />
           ))
         : playlists.map((playlist) => (
             <GridItem key={playlist.id}>

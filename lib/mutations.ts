@@ -9,5 +9,5 @@ export const auth = (
     lastName?: string;
   }
 ) => {
-  return fetcher(`/${mode}`, body);
+  return fetcher(`/auth/${mode}`, body);
 };
