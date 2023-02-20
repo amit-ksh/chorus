@@ -20,11 +20,13 @@ model User {
   password            String
   image               String?
   // 1-User -> n-Playlist
-  playlists           Playlist[]
+  playlists           Playlist[]    @relation("User_Playlist")
   // 1-User -> n-Artists (follows)
-  following           String[]      @db.ObjectId
+  following           Artist[]      @relation(fields: [followingIds], references: [id])
+  followingIds        String[]      @db.ObjectId
   // 1-User -> n-Playlist
-  savedPlaylists      String[]      @db.ObjectId
+  savedPlaylists      Playlist[]    @relation("User_SavedPlaylist", fields: [savedPlaylistIds], references: [id])
+  savedPlaylistIds    String[]      @db.ObjectId
 }
 
 model Song {
@@ -50,7 +52,8 @@ model Artist {
   updatedAt           DateTime      @updatedAt
   name                String        @unique
   image               String?
-  followers           Int           @default(0)
+  followers           User[]        @relation(fields: [followerIds], references: [id])
+  followerIds         String[]      @db.ObjectId
   // 1-Artist -> n-Song
   songs               Song[]
 }
@@ -61,10 +64,13 @@ model Playlist {
   updatedAt           DateTime      @updatedAt
   name                String
   image               String?
-  likes               Int           @default(0)
+  likes               Int           @map("savedIds")
   // 1-Playlist -> 1-User
-  user                User          @relation(fields: [userId], references: [id])
+  user                User          @relation("User_Playlist", fields: [userId], references: [id])
   userId              String        @db.ObjectId
+  // 1-Playlist -> n-User
+  savedBy             User[]        @relation("User_SavedPlaylist", fields: [savedByIds], references: [id])
+  savedByIds          String[]      @db.ObjectId
   // 1-Playlist -> n-Song
   songs               Song[]        @relation(fields: [songIds], references: [id])
   songIds             String[]      @db.ObjectId
