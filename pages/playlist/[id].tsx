@@ -25,33 +25,38 @@ const Playlist = ({ playlist }) => {
   const [likes, setLikes] = useState<number>(playlist.likes);
 
   const toast = useToast();
+  const TOASTID = 'follow-toast';
 
+  // random color for gradient background
   const color = getRandomBGColor();
 
   const savePlaylist = async () => {
-    setFavorite(!favorite);
-    setLikes((v) => (favorite ? v + 1 : v - 1));
+    setLikes((v) => (!favorite ? v + 1 : v - 1));
+    setFavorite((v) => !v);
 
     try {
       const response = await fetcher('/put/favoritePlaylist', {
         id: playlist.id,
-        favorite,
+        likes,
       });
 
       if (response.error) {
         // undo the changes
-        setFavorite(!favorite);
+        setFavorite((v) => !v);
         setLikes((v) => (favorite ? v + 1 : v - 1));
 
         throw new Error(response.error);
       }
     } catch (error) {
-      toast({
-        title: error.message,
-        status: 'error',
-        duration: 5000,
-        position: 'top',
-      });
+      if (!toast.isActive(TOASTID)) {
+        toast({
+          id: TOASTID,
+          title: error.message,
+          status: 'error',
+          duration: 5000,
+          position: 'top',
+        });
+      }
     }
   };
 

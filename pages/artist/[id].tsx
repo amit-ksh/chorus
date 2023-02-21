@@ -1,12 +1,54 @@
-import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
 import GradientLayout from '../../components/gradientLayout';
 import { Profile } from '../../components/Profile';
 import SongsTable from '../../components/songsTable';
+import { validateToken } from '../../lib/auth';
+import fetcher from '../../lib/fetcher';
 import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
 
 const Playlist = ({ artist }) => {
+  const [following, setFollowing] = useState<boolean>(
+    !!artist.followers.length
+  );
+  const [followers, setFollowers] = useState<number>(artist.followers.length);
+
+  const toast = useToast();
+  const TOASTID = 'follow-toast';
+
+  // random color for gradient background
   const color = getRandomBGColor();
+
+  const handleFollow = async () => {
+    setFollowers((v) => (!following ? v + 1 : v - 1));
+    setFollowing((v) => !v);
+
+    try {
+      const response = await fetcher('/put/followArtist', {
+        id: artist.id,
+        following,
+      });
+
+      if (response.error) {
+        // undo the changes
+        setFollowing((v) => !v);
+        setFollowers((v) => (following ? v + 1 : v - 1));
+
+        throw new Error(response.error);
+      }
+    } catch (error) {
+      if (!toast.isActive(TOASTID)) {
+        toast({
+          id: TOASTID,
+          title: error.message,
+          status: 'error',
+          duration: 5000,
+          position: 'top',
+        });
+      }
+    }
+  };
 
   return (
     <GradientLayout
@@ -22,7 +64,7 @@ const Playlist = ({ artist }) => {
       >
         <Flex mt={6} align="center" color="gray.300">
           <Heading as="h3">
-            {artist.followers}{' '}
+            {followers}{' '}
             <Text as="span" fontSize="md">
               followers
             </Text>
@@ -43,9 +85,9 @@ const Playlist = ({ artist }) => {
               color: 'gray.100',
               borderColor: 'purple.600',
             }}
-            // TODO: add follower on click
+            onClick={handleFollow}
           >
-            Follow
+            {following ? 'Following' : 'Follow'}
           </Button>
         </Flex>
       </Profile>
@@ -55,7 +97,19 @@ const Playlist = ({ artist }) => {
   );
 };
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps = async ({ req, query }) => {
+  let user;
+  try {
+    user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        path: '/signin',
+      },
+    };
+  }
+
   const artist = await prisma.artist.findFirst({
     where: {
       id: query.id,
@@ -70,6 +124,11 @@ export const getServerSideProps = async ({ query }) => {
               name: true,
             },
           },
+        },
+      },
+      followers: {
+        where: {
+          id: user.id,
         },
       },
     },
