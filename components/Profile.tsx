@@ -15,7 +15,7 @@ interface IProps extends BoxProps {
   image: string;
   subtitle: string;
   title: string;
-  description: string;
+  description: string | ReactNode;
   isLoading?: boolean;
   roundImage?: boolean;
 }
@@ -32,9 +32,9 @@ export const Profile: FC<IProps> = ({
 }) => {
   return (
     <Box {...rest}>
-      <Flex align="center">
+      <Flex align="center" direction={{ base: 'column', md: 'row' }}>
         <SkeletonCircle
-          size={['100px', '140px']}
+          size={['60%', '140px']}
           isLoaded={!isLoading}
           fadeDuration={1.2}
           borderRadius={roundImage ? 'full' : '3px'}
@@ -71,7 +71,7 @@ export const Profile: FC<IProps> = ({
             isLoaded={!isLoading}
             fadeDuration={1.2}
           >
-            <Heading as="h1" fontSize={{ base: '2xl', sm: '4xl' }}>
+            <Heading as="h1" fontSize={{ base: '2xl', sm: '2em' }}>
               {title}
             </Heading>
           </Skeleton>

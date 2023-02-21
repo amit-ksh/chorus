@@ -8,7 +8,7 @@ import fetcher from '../../lib/fetcher';
 import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
 
-const Playlist = ({ artist }) => {
+const Artist = ({ artist }) => {
   const [following, setFollowing] = useState<boolean>(
     !!artist.followers.length
   );
@@ -27,7 +27,7 @@ const Playlist = ({ artist }) => {
     try {
       const response = await fetcher('/put/followArtist', {
         id: artist.id,
-        following,
+        following: !following,
       });
 
       if (response.error) {
@@ -139,4 +139,4 @@ export const getServerSideProps = async ({ req, query }) => {
   };
 };
 
-export default Playlist;
+export default Artist;

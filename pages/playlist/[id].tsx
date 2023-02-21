@@ -37,7 +37,7 @@ const Playlist = ({ playlist }) => {
     try {
       const response = await fetcher('/put/favoritePlaylist', {
         id: playlist.id,
-        likes,
+        favorite: !favorite,
       });
 
       if (response.error) {

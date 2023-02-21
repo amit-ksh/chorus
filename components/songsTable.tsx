@@ -23,9 +23,10 @@ interface SongsTableProps {
     duration: number;
     url: string;
   }>;
+  hasPlayButton?: boolean;
 }
 
-const SongsTable: FC<SongsTableProps> = ({ songs }) => {
+const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
   const playSongs = useStoreActions(
     (actions: any) => actions.changeActiveSongs
   );
@@ -41,18 +42,20 @@ const SongsTable: FC<SongsTableProps> = ({ songs }) => {
   return (
     <Box bg="transparent" color="white">
       <Box p="10px" mb="20px">
-        <Box mb="30px">
-          <IconButton
-            icon={<BsFillPlayFill color="black" fontSize="30px" />}
-            aria-label="play"
-            bg="purple.500"
-            _hover={{ bg: 'purple.400' }}
-            _focus={{ bg: 'purple.400' }}
-            size="lg"
-            isRound
-            onClick={() => handlePlay()}
-          />
-        </Box>
+        {hasPlayButton && (
+          <Box mb="30px">
+            <IconButton
+              icon={<BsFillPlayFill color="black" fontSize="30px" />}
+              aria-label="play"
+              bg="purple.500"
+              _hover={{ bg: 'purple.400' }}
+              _focus={{ bg: 'purple.400' }}
+              size="lg"
+              isRound
+              onClick={() => handlePlay()}
+            />
+          </Box>
+        )}
         <Table variant="unstyled">
           <Thead
             borderBottom="1px solid"
