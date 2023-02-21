@@ -25,7 +25,7 @@ const Playlist = ({ playlist }) => {
   const [likes, setLikes] = useState<number>(playlist.likes);
 
   const toast = useToast();
-  const TOASTID = 'follow-toast';
+  const TOASTID = 'save-playlist-toast';
 
   // random color for gradient background
   const color = getRandomBGColor();

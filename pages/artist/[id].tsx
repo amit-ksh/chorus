@@ -15,7 +15,7 @@ const Playlist = ({ artist }) => {
   const [followers, setFollowers] = useState<number>(artist.followers.length);
 
   const toast = useToast();
-  const TOASTID = 'follow-toast';
+  const TOASTID = 'follow-artist-toast';
 
   // random color for gradient background
   const color = getRandomBGColor();
