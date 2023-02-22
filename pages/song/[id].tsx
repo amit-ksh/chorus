@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
   IconButton,
@@ -8,20 +7,55 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import GradientLayout from '../../components/gradientLayout';
 import { Profile } from '../../components/Profile';
 import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
 import fetcher from '../../lib/fetcher';
-import { formatTime } from '../../lib/formatter';
 import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
 
-const Song = ({ song }) => {
+const Song = ({ song, likedByUser }) => {
+  const [favorite, setFavorite] = useState<boolean>(likedByUser);
+  const [likes, setLikes] = useState<number>(song.likes);
+
+  const toast = useToast();
+  const TOASTID = 'save-song-toast';
+
   // random color for gradient background
   const color = getRandomBGColor();
+
+  const saveSong = async () => {
+    setLikes((v) => (!favorite ? v + 1 : v - 1));
+    setFavorite((v) => !v);
+
+    try {
+      const response = await fetcher('/put/favoriteSong', {
+        id: song.id,
+        favorite: !favorite,
+      });
+
+      if (response.error) {
+        // undo the changes
+        setFavorite((v) => !v);
+        setLikes((v) => (favorite ? v + 1 : v - 1));
+
+        throw new Error(response.error);
+      }
+    } catch (error) {
+      if (!toast.isActive(TOASTID)) {
+        toast({
+          id: TOASTID,
+          title: error.message,
+          status: 'error',
+          duration: 5000,
+          position: 'top',
+        });
+      }
+    }
+  };
 
   return (
     <GradientLayout
@@ -45,7 +79,7 @@ const Song = ({ song }) => {
         {/* LIKES */}
         <Flex mt={6} align="center" color="gray.300">
           <Heading as="h3" w="100px">
-            {song.likes}{' '}
+            {likes}{' '}
             <Text as="span" fontSize="md">
               likes
             </Text>
@@ -57,10 +91,10 @@ const Song = ({ song }) => {
               color="red"
               fontSize="25px"
               aria-label="like"
-              icon={<AiFillHeart />}
+              icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
               _hover={{ bg: 'transparent' }}
               _focus={{ bg: 'transparent' }}
-              // onClick={saveSong}
+              onClick={saveSong}
             />
           </Box>
 
@@ -106,6 +140,27 @@ export const getServerSideProps = async ({ req, query }) => {
     };
   }
 
+  const User = await prisma.user.findUnique({
+    where: { id: user.id },
+  });
+  const { songs } = await prisma.playlist.findUnique({
+    where: {
+      id: User.favoritePlaylistId,
+    },
+    select: {
+      songs: {
+        where: {
+          id: query.id,
+        },
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  const likedByUser = songs.length > 0;
+
   const song = await prisma.song.findUnique({
     where: {
       id: query.id,
@@ -121,7 +176,7 @@ export const getServerSideProps = async ({ req, query }) => {
   });
 
   return {
-    props: { song },
+    props: { song, likedByUser },
   };
 };
 
