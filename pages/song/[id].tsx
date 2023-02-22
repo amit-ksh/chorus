@@ -6,6 +6,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
+import { useStoreActions } from 'easy-peasy';
 import { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
@@ -20,6 +21,13 @@ import { getRandomBGColor } from '../../lib/utils';
 const Song = ({ song, likedByUser }) => {
   const [favorite, setFavorite] = useState<boolean>(likedByUser);
   const [likes, setLikes] = useState<number>(song.likes);
+
+  const setActiveSong = useStoreActions(
+    (actions: any) => actions.changeActiveSong
+  );
+  const playSongs = useStoreActions(
+    (actions: any) => actions.changeActiveSongs
+  );
 
   const toast = useToast();
   const TOASTID = 'save-song-toast';
@@ -55,6 +63,11 @@ const Song = ({ song, likedByUser }) => {
         });
       }
     }
+  };
+
+  const handlePlay = (activeSong?) => {
+    setActiveSong(activeSong);
+    playSongs(song.artist.songs);
   };
 
   return (
@@ -107,7 +120,7 @@ const Song = ({ song, likedByUser }) => {
               _focus={{ bg: 'purple.400' }}
               size="lg"
               isRound
-              // onClick={() => handlePlay()}
+              onClick={() => handlePlay(song)}
             />
           </Box>
         </Flex>
@@ -158,7 +171,6 @@ export const getServerSideProps = async ({ req, query }) => {
       },
     },
   });
-
   const likedByUser = songs.length > 0;
 
   const song = await prisma.song.findUnique({
@@ -169,7 +181,11 @@ export const getServerSideProps = async ({ req, query }) => {
       artist: {
         select: {
           name: true,
-          songs: true,
+          songs: {
+            include: {
+              artist: true,
+            },
+          },
         },
       },
     },
