@@ -43,7 +43,7 @@ export const Profile: FC<IProps> = ({
             boxSize="full"
             boxShadow="2xl"
             src={image}
-            borderRadius="3px"
+            borderRadius={roundImage ? 'full' : '3px'}
           />
         </SkeletonCircle>
 
@@ -54,7 +54,7 @@ export const Profile: FC<IProps> = ({
           p="20px"
           color="white"
         >
-          <Skeleton w="80px" h={3} isLoaded={!isLoading} fadeDuration={1.2}>
+          <Skeleton w="80px" isLoaded={!isLoading} fadeDuration={1.2}>
             <Text
               fontSize="x-small"
               fontWeight="bold"
@@ -64,18 +64,12 @@ export const Profile: FC<IProps> = ({
               {subtitle}
             </Text>
           </Skeleton>
-          <Skeleton
-            mb={4}
-            mt={2}
-            h={10}
-            isLoaded={!isLoading}
-            fadeDuration={1.2}
-          >
-            <Heading as="h1" fontSize={{ base: '2xl', sm: '2em' }}>
+          <Skeleton my={2} isLoaded={!isLoading} fadeDuration={1.2}>
+            <Heading as="h1" fontSize={{ base: '2xl', sm: '1.5em', lg: '2em' }}>
               {title}
             </Heading>
           </Skeleton>
-          <Skeleton w="120px" h={3} isLoaded={!isLoading} fadeDuration={1.2}>
+          <Skeleton w="120px" isLoaded={!isLoading} fadeDuration={1.2}>
             <Text fontSize="x-small">{description}</Text>
           </Skeleton>
         </Flex>

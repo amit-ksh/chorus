@@ -40,14 +40,15 @@ interface PlayerProps {
 
 const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState<boolean>(false);
-  const [index, setIndex] = useState(
+  const [index, setIndex] = useState<number>(
     songs.findIndex((s) => s.id === activeSong.id)
   );
-  const [seek, setSeek] = useState(0.0);
-  const [isSeeking, setIsSeeking] = useState(false);
-  const [repeat, setRepeat] = useState(false);
-  const [shuffle, setShuffle] = useState(false);
-  const [duration, setDuration] = useState(0.0);
+  const [seek, setSeek] = useState<number>(0.0);
+  const [isSeeking, setIsSeeking] = useState<boolean>(false);
+  const [repeat, setRepeat] = useState<boolean>(false);
+  const [shuffle, setShuffle] = useState<boolean>(false);
+  const [duration, setDuration] = useState<number>(0.0);
+
   const soundRef = useRef(null);
   const repeatRef = useRef(repeat);
 
@@ -144,6 +145,7 @@ const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
           onEnd={onEnd}
         />
       </Box>
+      {/* Player Buttons */}
       <Center>
         <ButtonGroup
           sx={{
@@ -239,6 +241,7 @@ const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
         </ButtonGroup>
       </Center>
 
+      {/* Player Slider */}
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box w="10%">
@@ -259,7 +262,7 @@ const Player: FC<PlayerProps> = ({ songs, activeSong }) => {
               onChangeEnd={() => setIsSeeking(false)}
             >
               <RangeSliderTrack bg="gray.800">
-                <RangeSliderFilledTrack bg="gray.600" />
+                <RangeSliderFilledTrack bg="purple.600" />
               </RangeSliderTrack>
               <RangeSliderThumb index={0} />
             </RangeSlider>

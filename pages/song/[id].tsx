@@ -1,27 +1,16 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
 import { useStoreActions } from 'easy-peasy';
-import { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
+import FavoriteButton from '../../components/favoriteButton';
 import GradientLayout from '../../components/gradientLayout';
 import { Profile } from '../../components/Profile';
 import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
-import fetcher from '../../lib/fetcher';
 import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
 
 const Song = ({ song, likedByUser }) => {
-  const [favorite, setFavorite] = useState<boolean>(likedByUser);
-  const [likes, setLikes] = useState<number>(song.likes);
-
   const setActiveSong = useStoreActions(
     (actions: any) => actions.changeActiveSong
   );
@@ -29,41 +18,8 @@ const Song = ({ song, likedByUser }) => {
     (actions: any) => actions.changeActiveSongs
   );
 
-  const toast = useToast();
-  const TOASTID = 'save-song-toast';
-
   // random color for gradient background
   const color = getRandomBGColor();
-
-  const saveSong = async () => {
-    setLikes((v) => (!favorite ? v + 1 : v - 1));
-    setFavorite((v) => !v);
-
-    try {
-      const response = await fetcher('/put/favoriteSong', {
-        id: song.id,
-        favorite: !favorite,
-      });
-
-      if (response.error) {
-        // undo the changes
-        setFavorite((v) => !v);
-        setLikes((v) => (favorite ? v + 1 : v - 1));
-
-        throw new Error(response.error);
-      }
-    } catch (error) {
-      if (!toast.isActive(TOASTID)) {
-        toast({
-          id: TOASTID,
-          title: error.message,
-          status: 'error',
-          duration: 5000,
-          position: 'top',
-        });
-      }
-    }
-  };
 
   const handlePlay = (activeSong?) => {
     setActiveSong(activeSong);
@@ -91,25 +47,12 @@ const Song = ({ song, likedByUser }) => {
       >
         {/* LIKES */}
         <Flex mt={6} align="center" color="gray.300">
-          <Heading as="h3" w="100px">
-            {likes}{' '}
-            <Text as="span" fontSize="md">
-              likes
-            </Text>
-          </Heading>
-
-          <Box alignSelf="flex-end" ml={4} w="full">
-            <IconButton
-              bg="transparent"
-              color="red"
-              fontSize="25px"
-              aria-label="like"
-              icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
-              _hover={{ bg: 'transparent' }}
-              _focus={{ bg: 'transparent' }}
-              onClick={saveSong}
-            />
-          </Box>
+          <FavoriteButton
+            type="Song"
+            item={song}
+            userFavorite={likedByUser}
+            w="full"
+          />
 
           <Box>
             <IconButton

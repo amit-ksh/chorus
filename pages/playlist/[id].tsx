@@ -1,64 +1,15 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-
 import GradientLayout from '../../components/gradientLayout';
 import { Profile } from '../../components/Profile';
 import SongsTable from '../../components/songsTable';
 
-import fetcher from '../../lib/fetcher';
 import { validateToken } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
-import { useState } from 'react';
+import FavoriteButton from '../../components/favoriteButton';
 
 const Playlist = ({ playlist }) => {
-  const [favorite, setFavorite] = useState<boolean>(
-    playlist.savedBy.length ? true : false
-  );
-  const [likes, setLikes] = useState<number>(playlist.likes);
-
-  const toast = useToast();
-  const TOASTID = 'save-playlist-toast';
-
   // random color for gradient background
   const color = getRandomBGColor();
-
-  const savePlaylist = async () => {
-    setLikes((v) => (!favorite ? v + 1 : v - 1));
-    setFavorite((v) => !v);
-
-    try {
-      const response = await fetcher('/put/favoritePlaylist', {
-        id: playlist.id,
-        favorite: !favorite,
-      });
-
-      if (response.error) {
-        // undo the changes
-        setFavorite((v) => !v);
-        setLikes((v) => (favorite ? v + 1 : v - 1));
-
-        throw new Error(response.error);
-      }
-    } catch (error) {
-      if (!toast.isActive(TOASTID)) {
-        toast({
-          id: TOASTID,
-          title: error.message,
-          status: 'error',
-          duration: 5000,
-          position: 'top',
-        });
-      }
-    }
-  };
 
   return (
     <GradientLayout
@@ -72,27 +23,12 @@ const Playlist = ({ playlist }) => {
         image={`https://picsum.photos/400?random=${playlist.id}`}
         m={10}
       >
-        <Flex mt={6} align="center" color="gray.300">
-          <Heading as="h3">
-            {likes}{' '}
-            <Text as="span" fontSize="md">
-              likes
-            </Text>
-          </Heading>
-
-          <Box alignSelf="flex-end" ml={4}>
-            <IconButton
-              bg="transparent"
-              color="red"
-              fontSize="25px"
-              aria-label="like"
-              icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
-              _hover={{ bg: 'transparent' }}
-              _focus={{ bg: 'transparent' }}
-              onClick={savePlaylist}
-            />
-          </Box>
-        </Flex>
+        <FavoriteButton
+          type="Playlist"
+          item={playlist}
+          userFavorite={playlist.savedBy.length > 0}
+          mt={6}
+        />
       </Profile>
 
       <SongsTable songs={playlist.songs} />

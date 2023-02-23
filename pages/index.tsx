@@ -95,7 +95,7 @@ const Home = ({ artists, songs, playlists }) => {
         ))}
       </PageSection>
 
-      {/* Playlists */}
+      {/* PLAYLISTS */}
       <PageSection title="Top Playlists">
         {playlists.map((playlist) => (
           <LinkCard
@@ -126,7 +126,21 @@ export const getServerSideProps = async ({ req }) => {
 
   const [artists, songs, playlists] = await Promise.all([
     prisma.artist.findMany({ take: 10 }),
-    prisma.song.findMany({ take: 10 }),
+    prisma.song.findMany({
+      take: 10,
+      include: {
+        artist: {
+          select: {
+            name: true,
+            songs: {
+              include: {
+                artist: true,
+              },
+            },
+          },
+        },
+      },
+    }),
     prisma.playlist.findMany({ take: 10 }),
   ]);
 

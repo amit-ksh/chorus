@@ -3,18 +3,24 @@ import {
   Box,
   Grid,
   Heading,
+  IconButton,
   Img,
   LayoutProps,
   LinkBox,
   LinkOverlay,
 } from '@chakra-ui/react';
 import { FC } from 'react';
+import { BsFillPlayFill } from 'react-icons/bs';
+import { useStoreActions } from 'easy-peasy';
 
 interface ILinkCardProps {
   linkData: {
     id: string;
     name: string;
     url: string;
+    artist?: {
+      songs: string[];
+    };
   };
   link: string;
   imageSize: LayoutProps['boxSize'];
@@ -27,6 +33,18 @@ const LinkCard: FC<ILinkCardProps> = ({
   roundImage = false,
   link,
 }) => {
+  const setActiveSong = useStoreActions(
+    (actions: any) => actions.changeActiveSong
+  );
+  const playSongs = useStoreActions(
+    (actions: any) => actions.changeActiveSongs
+  );
+
+  const handlePlay = (activeSong?) => {
+    setActiveSong(activeSong);
+    playSongs(linkData.artist.songs);
+  };
+
   return (
     <Grid
       as={LinkBox}
@@ -39,7 +57,7 @@ const LinkCard: FC<ILinkCardProps> = ({
       _hover={{ bg: 'purple.600' }}
       _focus={{ bg: 'purple.600' }}
     >
-      <Box w="full" mb={6}>
+      <Box position="relative" w="full" mb={6}>
         <Img
           display="block"
           boxSize="full"
@@ -48,6 +66,21 @@ const LinkCard: FC<ILinkCardProps> = ({
           src={`https://picsum.photos/400?random=${linkData.id}`}
           alt={linkData.name}
         />
+        {!!linkData.url && (
+          <Box position="absolute" bottom={2} right={2}>
+            <IconButton
+              icon={<BsFillPlayFill color="black" fontSize="30px" />}
+              aria-label="play"
+              bg="purple.500"
+              _hover={{ bg: 'purple.400' }}
+              _focus={{ bg: 'purple.400' }}
+              size="md"
+              isRound
+              zIndex={10}
+              onClick={() => handlePlay(linkData)}
+            />
+          </Box>
+        )}
       </Box>
 
       <LinkOverlay as={NextLink} href={link}>
