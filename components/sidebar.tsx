@@ -47,7 +47,7 @@ const LinkItems: Array<LinkItemProps> = [
   {
     name: 'Your Library',
     icon: MdLibraryMusic,
-    route: '/user#playlists',
+    route: '/your-library',
   },
 ];
 

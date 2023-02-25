@@ -2,13 +2,15 @@ import prisma from '../../../lib/prisma';
 import { validateRoute } from '../../../lib/auth';
 
 export default validateRoute(async (req, res, user) => {
-  const { playlists } = await prisma.user.findUnique({
+  const { savedPlaylists } = await prisma.user.findUnique({
     where: {
       id: user.id,
     },
     select: {
-      playlists: {
-        where: { id: { not: user.favoritePlaylistId } },
+      savedPlaylists: {
+        where: {
+          userId: { not: user.id },
+        },
         orderBy: {
           name: 'asc',
         },
@@ -16,5 +18,5 @@ export default validateRoute(async (req, res, user) => {
     },
   });
 
-  res.json(playlists);
+  res.json(savedPlaylists);
 });

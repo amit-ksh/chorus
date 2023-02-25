@@ -11,8 +11,8 @@ export const useMe = () => {
   };
 };
 
-export const usePlaylist = () => {
-  const { data, error } = useSWR('/get/playlist', fetcher);
+export const usePlaylist = (resourceName: 'playlist' | 'savedPlaylist') => {
+  const { data, error } = useSWR(`/get/${resourceName}`, fetcher);
 
   return {
     playlists: (data as any) || [],
