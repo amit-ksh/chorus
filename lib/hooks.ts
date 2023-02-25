@@ -30,3 +30,13 @@ export const useFavorite = () => {
     isError: error,
   };
 };
+
+export const useArtist = () => {
+  const { data, error } = useSWR('/get/artist', fetcher);
+
+  return {
+    artists: (data as any) || [],
+    isLoading: !data && !error,
+    isError: error,
+  };
+};

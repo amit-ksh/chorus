@@ -9,14 +9,13 @@ import {
 } from '@chakra-ui/react';
 
 import LinkCard from './linkcard';
-import { usePlaylist } from '../lib/hooks';
+import { useArtist } from '../lib/hooks';
 
-const UserPlaylists: FC<{
-  resourceName?: 'playlist' | 'savedPlaylist';
+const Artists: FC<{
   heading: string;
   emptyMessage: string;
-}> = ({ resourceName = 'playlist', heading, emptyMessage }) => {
-  const { playlists, isLoading } = usePlaylist(resourceName);
+}> = ({ heading, emptyMessage }) => {
+  const { artists, isLoading } = useArtist();
 
   return (
     <Box as="section">
@@ -24,7 +23,7 @@ const UserPlaylists: FC<{
         {heading}
       </Heading>
 
-      {!isLoading && !playlists.length && (
+      {!isLoading && !artists.length && (
         <Center h="50vh">
           <Text
             fontSize="3xl"
@@ -50,11 +49,11 @@ const UserPlaylists: FC<{
 
       <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} my={8} ml={4}>
         {!isLoading &&
-          playlists.map((song) => (
+          artists.map((song) => (
             <LinkCard
               key={song.id}
               linkData={song}
-              link={`/playlists/${song.id}`}
+              link={`/artist/${song.id}`}
               imageSize="148px"
             />
           ))}
@@ -63,4 +62,4 @@ const UserPlaylists: FC<{
   );
 };
 
-export default UserPlaylists;
+export default Artists;

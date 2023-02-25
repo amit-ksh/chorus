@@ -17,7 +17,7 @@ const FavoriteSongs: FC = () => {
   return (
     <Box as="section">
       <Heading as="h2" fontSize="2xl">
-        Your Favorite Songs
+        Favorite Songs
       </Heading>
 
       {!isLoading && !songs.length && (
