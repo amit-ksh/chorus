@@ -10,13 +10,13 @@ export default validateRoute(async (req, res, user) => {
       where: { id: artistId },
       data: {
         followers: following
-          ? { connect: { id: user.id } } // save the playlist to user's saved list
-          : { disconnect: { id: user.id } }, // remove the playlist from user's saved list
+          ? { connect: { id: user.id } } // follow artist
+          : { disconnect: { id: user.id } }, // unfollow artist
       },
     });
 
     return res.status(201).json({
-      message: `You started ${following ? '' : 'un'}following ${artist.name}`,
+      message: `You ${following ? 'started ' : 'un'}following ${artist.name}`,
     });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {

@@ -8,9 +8,6 @@ export default validateRoute(async (req, res, user) => {
     },
     select: {
       savedPlaylists: {
-        where: {
-          userId: { not: user.id },
-        },
         orderBy: {
           name: 'asc',
         },
