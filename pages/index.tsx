@@ -29,7 +29,7 @@ const greeting = () => {
 };
 
 const Home = ({ artists, songs, playlists }) => {
-  const { playlists: userPlaylits } = usePlaylist();
+  const { playlists: userPlaylist, isLoading } = usePlaylist('playlist');
 
   const activeSong = useStoreState((state: any) => state.activeSong);
 
@@ -52,10 +52,11 @@ const Home = ({ artists, songs, playlists }) => {
           {greeting()}
         </Text>
         <Box>
-          {userPlaylits.length > 0 ? (
+          {isLoading && <PlaylistSkeleton minW="310px" maxW="360px" w="40vw" />}
+          {!isLoading && userPlaylist.length > 0 && (
             <PlaylistCard
               as={LinkBox}
-              playlist={userPlaylits[0]}
+              playlist={userPlaylist[0]}
               minW="310px"
               maxW="360px"
               w="40vw"
@@ -64,8 +65,6 @@ const Home = ({ artists, songs, playlists }) => {
               _hover={{ transform: 'scale(1.05)' }}
               _focusWithin={{ transform: 'scale(1.05)' }}
             />
-          ) : (
-            <PlaylistSkeleton minW="310px" maxW="360px" w="40vw" />
           )}
         </Box>
       </VStack>
