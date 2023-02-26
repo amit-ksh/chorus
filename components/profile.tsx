@@ -20,7 +20,7 @@ interface IProps extends BoxProps {
   roundImage?: boolean;
 }
 
-export const Profile: FC<IProps> = ({
+const Profile: FC<IProps> = ({
   image,
   subtitle,
   title,
@@ -78,3 +78,5 @@ export const Profile: FC<IProps> = ({
     </Box>
   );
 };
+
+export default Profile;

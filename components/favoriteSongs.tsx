@@ -1,15 +1,9 @@
-import {
-  Box,
-  Center,
-  Heading,
-  SimpleGrid,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 
 import { useFavorite } from '../lib/hooks';
 import LinkCard from './linkcard';
+import Loader from './loader';
 
 const FavoriteSongs: FC = () => {
   const { songs, isLoading } = useFavorite();
@@ -33,16 +27,7 @@ const FavoriteSongs: FC = () => {
         </Center>
       )}
 
-      {isLoading && (
-        <Center mt={12}>
-          <Spinner
-            color="purple.400"
-            size="xl"
-            thickness="3px"
-            label="loading"
-          />
-        </Center>
-      )}
+      {isLoading && <Loader />}
 
       <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} my={8} ml={4}>
         {!isLoading &&

@@ -2,7 +2,7 @@ import { Box, Heading } from '@chakra-ui/react';
 
 import GradientLayout from '../components/gradientLayout';
 import Playlists from '../components/playlists';
-import { Profile } from '../components/Profile';
+import Profile from '../components/profile';
 import { useMe } from '../lib/hooks';
 
 const User = () => {

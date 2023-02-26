@@ -1,5 +1,5 @@
 import GradientLayout from '../../components/gradientLayout';
-import { Profile } from '../../components/Profile';
+import Profile from '../../components/profile';
 import SongsTable from '../../components/songsTable';
 
 import { validateToken } from '../../lib/auth';

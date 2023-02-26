@@ -1,21 +1,16 @@
 import { FC } from 'react';
-import {
-  Box,
-  Center,
-  Heading,
-  SimpleGrid,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 import LinkCard from './linkcard';
-import { useArtist } from '../lib/hooks';
+import { usePlaylist } from '../lib/hooks';
+import Loader from './loader';
 
-const Artists: FC<{
+const UserPlaylists: FC<{
+  resourceName?: 'playlist' | 'savedPlaylist';
   heading: string;
   emptyMessage: string;
-}> = ({ heading, emptyMessage }) => {
-  const { artists, isLoading } = useArtist();
+}> = ({ resourceName = 'playlist', heading, emptyMessage }) => {
+  const { playlists, isLoading } = usePlaylist(resourceName);
 
   return (
     <Box as="section">
@@ -23,7 +18,7 @@ const Artists: FC<{
         {heading}
       </Heading>
 
-      {!isLoading && !artists.length && (
+      {!isLoading && !playlists.length && (
         <Center h="50vh">
           <Text
             fontSize="3xl"
@@ -36,24 +31,15 @@ const Artists: FC<{
         </Center>
       )}
 
-      {isLoading && (
-        <Center mt={12}>
-          <Spinner
-            color="purple.400"
-            size="xl"
-            thickness="3px"
-            label="loading"
-          />
-        </Center>
-      )}
+      {isLoading && <Loader />}
 
       <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} my={8} ml={4}>
         {!isLoading &&
-          artists.map((song) => (
+          playlists.map((song) => (
             <LinkCard
               key={song.id}
               linkData={song}
-              link={`/artist/${song.id}`}
+              link={`/playlists/${song.id}`}
               imageSize="148px"
             />
           ))}
@@ -62,4 +48,4 @@ const Artists: FC<{
   );
 };
 
-export default Artists;
+export default UserPlaylists;

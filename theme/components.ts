@@ -1,4 +1,4 @@
-import type { ComponentStyleConfig, DeepPartial } from '@chakra-ui/react';
+import { ComponentStyleConfig, cssVar, DeepPartial } from '@chakra-ui/react';
 
 export const Button: DeepPartial<ComponentStyleConfig> = {
   baseStyle: {
@@ -19,5 +19,14 @@ export const Tabs: DeepPartial<ComponentStyleConfig> = {
   defaultProps: {
     variant: 'solid-rounded',
     colorScheme: 'purple',
+  },
+};
+
+const $startColor = cssVar('skeleton-start-color');
+const $endColor = cssVar('skeleton-end-color');
+export const Skeleton: DeepPartial<ComponentStyleConfig> = {
+  baseStyle: {
+    [$startColor.variable]: 'gray.600',
+    [$endColor.variable]: 'gray.900',
   },
 };

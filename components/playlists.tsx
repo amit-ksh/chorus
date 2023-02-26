@@ -20,7 +20,7 @@ import { usePlaylist } from '../lib/hooks';
 import { formatDate } from '../lib/formatter';
 
 export default function Playlists(props: SimpleGridProps) {
-  const { playlists, isLoading } = usePlaylist();
+  const { playlists, isLoading } = usePlaylist('playlist');
 
   return (
     <SimpleGrid columns={[1, 2, 1, 2]} gap={4} {...props}>
@@ -58,7 +58,7 @@ export const PlaylistCard = ({
   ...rest
 }: PlaylistCardProps) => {
   return (
-    <Box pl="2" borderRadius="4px" bg={`${bgColor}`} {...rest}>
+    <Box pl="2" borderRadius="4px" bg={bgColor} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" px="4" py="2">
         <Box>
           <Img
@@ -92,28 +92,13 @@ export const PlaylistSkeleton: FC<Omit<PlaylistCardProps, 'playlist'>> = ({
   ...rest
 }) => {
   return (
-    <Box pl="2" borderRadius="4px" bg={`${bgColor}.500`} {...rest}>
+    <Box pl="2" borderRadius="4px" bg={bgColor} {...rest}>
       <Flex align="center" bg="gray.900" borderRadius="4px" py="3" px="4">
-        <Skeleton
-          startColor="gray.600"
-          endColor="gray.900"
-          speed={1.8}
-          w={16}
-          h={16}
-          borderRadius="4px"
-        />
+        <Skeleton w={16} h={16} borderRadius="4px" />
         <Box w="70%" ml={6}>
+          <SkeletonText speed={1.8} skeletonHeight="2.5rem" noOfLines={1} />
           <SkeletonText
-            startColor="gray.600"
-            endColor="gray.900"
             speed={1.8}
-            skeletonHeight="2.5rem"
-            noOfLines={1}
-          />
-          <SkeletonText
-            startColor="gray.600"
-            endColor="gray.900"
-            speed={2}
             mt={1}
             w="70%"
             skeletonHeight="8px"

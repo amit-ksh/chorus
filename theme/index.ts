@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 
 import color from './color';
-import { Button, Tabs } from './components';
+import { Button, Skeleton, Tabs } from './components';
 
 // all use dark mode
 const config: DeepPartial<ThemeConfig> = {
@@ -20,6 +20,7 @@ const theme: ThemeOverride = {
   components: {
     Button,
     Tabs,
+    Skeleton,
   },
 };
 

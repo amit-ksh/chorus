@@ -8,7 +8,6 @@ export default validateRoute(async (req, res, user) => {
     },
     select: {
       playlists: {
-        where: { id: { not: user.favoritePlaylistId } },
         orderBy: {
           name: 'asc',
         },

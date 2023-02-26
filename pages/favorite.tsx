@@ -1,6 +1,6 @@
 import GradientLayout from '../components/gradientLayout';
 import FavoriteSongs from '../components/favoriteSongs';
-import Artists from '../components/Artists';
+import Artists from '../components/artists';
 
 const FavoritePage = () => {
   return (

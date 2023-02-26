@@ -1,7 +1,7 @@
 import { Button, Flex, Heading, Text, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import GradientLayout from '../../components/gradientLayout';
-import { Profile } from '../../components/Profile';
+import Profile from '../../components/profile';
 import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
 import fetcher from '../../lib/fetcher';

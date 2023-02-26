@@ -1,10 +1,9 @@
 import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
 import { useStoreActions } from 'easy-peasy';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 import FavoriteButton from '../../components/favoriteButton';
 import GradientLayout from '../../components/gradientLayout';
-import { Profile } from '../../components/Profile';
+import Profile from '../../components/profile';
 import SongsTable from '../../components/songsTable';
 import { validateToken } from '../../lib/auth';
 import prisma from '../../lib/prisma';
