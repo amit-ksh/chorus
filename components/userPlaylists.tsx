@@ -39,7 +39,7 @@ const UserPlaylists: FC<{
             <LinkCard
               key={song.id}
               linkData={song}
-              link={`/playlists/${song.id}`}
+              link={`/playlist/${song.id}`}
               imageSize="148px"
             />
           ))}
