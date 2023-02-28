@@ -16,7 +16,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
 
   return (
     <Box
-      pb={activeSong ? '10vh' : '2vh'}
+      pb={activeSong ? '10vh' : 0}
       minH="89.4vh"
       h="full"
       overflowY="auto"
@@ -24,7 +24,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       bgGradient={gradient}
       {...rest}
     >
-      <Box mx={4}>{children}</Box>
+      <Box>{children}</Box>
     </Box>
   );
 };

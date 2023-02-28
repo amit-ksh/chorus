@@ -40,8 +40,12 @@ const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
   };
 
   return (
-    <Box bg="transparent" color="white">
-      <Box p="10px" mb="20px">
+    <Box
+      minH="60vh"
+      bgGradient="linear(#12121288 0%, #121212dd 100%)"
+      color="white"
+    >
+      <Box px={6} py={8}>
         {hasPlayButton && (
           <Box mb="30px">
             <IconButton
