@@ -110,29 +110,36 @@ export const getServerSideProps = async ({ req, query }) => {
     };
   }
 
-  const artist = await prisma.artist.findFirst({
-    where: {
-      id: query.id,
-    },
-    include: {
-      songs: {
-        where: { artistId: query.id },
-        include: {
-          artist: {
-            select: {
-              id: true,
-              name: true,
+  let artist;
+  try {
+    artist = await prisma.artist.findFirst({
+      where: {
+        id: query.id,
+      },
+      include: {
+        songs: {
+          where: { artistId: query.id },
+          include: {
+            artist: {
+              select: {
+                id: true,
+                name: true,
+              },
             },
           },
         },
-      },
-      followers: {
-        where: {
-          id: user.id,
+        followers: {
+          where: {
+            id: user.id,
+          },
         },
       },
-    },
-  });
+    });
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { artist },
