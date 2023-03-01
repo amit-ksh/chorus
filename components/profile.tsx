@@ -1,14 +1,18 @@
 import {
   Box,
   BoxProps,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Flex,
-  Heading,
   Image,
   Skeleton,
   SkeletonCircle,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
+import fetcher from '../lib/fetcher';
 
 interface IProps extends BoxProps {
   children?: ReactNode;
@@ -18,6 +22,7 @@ interface IProps extends BoxProps {
   description: string | ReactNode;
   isLoading?: boolean;
   roundImage?: boolean;
+  isEditable?: boolean;
 }
 
 const Profile: FC<IProps> = ({
@@ -27,9 +32,53 @@ const Profile: FC<IProps> = ({
   description,
   isLoading = false,
   roundImage = false,
+  isEditable = false,
   children,
   ...rest
 }) => {
+  const [name, setName] = useState(title);
+
+  const toast = useToast();
+  const TOASTID = 'update-playlist-toast';
+
+  const handlePlaylistName = async (newName: string) => {
+    if (newName.trim() === name) return;
+
+    try {
+      const response = await fetcher('/put/playlist', {
+        playlist: {
+          id: rest.id,
+          name: newName,
+        },
+      });
+
+      if (response.error) {
+        throw new Error(response.error);
+      } else {
+        setName(newName);
+        if (!toast.isActive(TOASTID)) {
+          toast({
+            id: TOASTID,
+            title: response.message,
+            status: 'success',
+            duration: 5000,
+            position: 'top',
+          });
+        }
+      }
+    } catch (error) {
+      if (!toast.isActive(TOASTID)) {
+        toast({
+          id: TOASTID,
+          title: error.message,
+          status: 'error',
+          duration: 5000,
+          position: 'top',
+        });
+      }
+    }
+  };
+
   return (
     <Box {...rest}>
       <Flex align="center" direction={{ base: 'column', md: 'row' }}>
@@ -48,6 +97,7 @@ const Profile: FC<IProps> = ({
         </SkeletonCircle>
 
         <Flex
+          w="70%"
           direction="column"
           justify="center"
           align="flex-start"
@@ -65,9 +115,20 @@ const Profile: FC<IProps> = ({
             </Text>
           </Skeleton>
           <Skeleton my={2} isLoaded={!isLoading} fadeDuration={1.2}>
-            <Heading as="h1" fontSize={{ base: '2xl', sm: '1.5em', lg: '2em' }}>
-              {title}
-            </Heading>
+            <Editable
+              fontSize="2.5em"
+              defaultValue={title || 'Playlist Name'}
+              placeholder="Playlist Name"
+              isDisabled={isEditable} // if true, editing is disabled
+              onSubmit={handlePlaylistName}
+            >
+              <EditablePreview />
+              <EditableInput
+                _focusVisible={{
+                  boxShadow: '0 0 0 2px var(--chakra-colors-purple-400)',
+                }}
+              />
+            </Editable>
           </Skeleton>
           <Skeleton w="120px" isLoaded={!isLoading} fadeDuration={1.2}>
             <Text fontSize="x-small">{description}</Text>

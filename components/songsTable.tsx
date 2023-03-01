@@ -46,7 +46,7 @@ const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
       color="white"
     >
       <Box px={6} py={8}>
-        {hasPlayButton && (
+        {hasPlayButton && songs.length > 0 && (
           <Box mb="30px">
             <IconButton
               icon={<BsFillPlayFill color="black" fontSize="30px" />}

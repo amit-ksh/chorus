@@ -1,13 +1,12 @@
 import prisma from '../../../lib/prisma';
 import { validateRoute } from '../../../lib/auth';
 import { Prisma } from '@prisma/client';
-import playlist from '../get/playlist';
 
 export default validateRoute(async (req, res, user) => {
   const { id: playlistId, favorite } = req.body;
 
   try {
-    await prisma.playlist.update({
+    const playlist = await prisma.playlist.update({
       where: { id: playlistId },
       data: {
         likes: favorite ? { increment: 1 } : { decrement: 1 },
