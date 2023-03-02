@@ -16,7 +16,7 @@ const User = () => {
       }
     >
       <Profile
-        id={user.id}
+        id={user?.id || ''}
         resourceName="user"
         subtitle="profile"
         title={`${user?.firstName} ${user?.lastName}`}

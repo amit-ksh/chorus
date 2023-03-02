@@ -19,9 +19,9 @@ export default validateRoute(async (req, res) => {
     });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return res.status(400).json({ error: "Playlist don't exists.", e });
+      return res.status(400).json({ error: "Playlist don't exists." });
     }
 
-    return res.status(500).json({ error: 'Server Error! Try agian later!', e });
+    return res.status(500).json({ error: 'Server Error! Try again later!' });
   }
 });

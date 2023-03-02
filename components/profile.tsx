@@ -111,7 +111,13 @@ const Profile: FC<IProps> = ({
               {subtitle}
             </Text>
           </Skeleton>
-          <Skeleton my={2} isLoaded={!isLoading} fadeDuration={1.2}>
+          <Skeleton
+            my={2}
+            h={isLoading ? '2.5em' : 'auto'}
+            w="full"
+            isLoaded={!isLoading}
+            fadeDuration={1.2}
+          >
             <Editable
               fontSize="2.5em"
               defaultValue={title || 'Playlist Name'}

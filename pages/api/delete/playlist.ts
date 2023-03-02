@@ -8,26 +8,17 @@ export default validateRoute(async (req, res) => {
   const id = data.id;
   delete data.id;
 
-  if (data?.name) {
-    const [firstName, lastName] = data.name.split(' ');
-    data.firstName = firstName;
-    data.lastName = lastName;
-
-    delete data.name;
-  }
-
   try {
-    await prisma.user.update({
+    await prisma.playlist.delete({
       where: { id },
-      data,
     });
 
     return res.status(201).json({
-      message: 'User updated.',
+      message: 'Playlist deleted.',
     });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return res.status(400).json({ error: "User don't exists." });
+      return res.status(400).json({ error: "Playlist don't exists." });
     }
 
     return res.status(500).json({ error: 'Server Error! Try again later!' });
