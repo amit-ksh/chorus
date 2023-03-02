@@ -15,12 +15,13 @@ const CreatePlaylistPage = ({ playlist }) => {
       }
     >
       <Profile
+        resourceName="playlist"
         id={playlist.id}
         title={playlist.name}
         subtitle="Playlist"
         description={`${playlist?.songs.length || 0} songs`}
         image={`https://picsum.photos/400?random=${playlist.id}`}
-        isEditable={playlist.isEditable}
+        isOwner={playlist.isOwner}
         my={10}
         mx={4}
       ></Profile>
@@ -72,7 +73,7 @@ export const getServerSideProps = async ({ req }) => {
       },
     };
   }
-  playlist.isEditable = playlist.userId === user.id;
+  playlist.isOwner = playlist.userId === user.id;
 
   return {
     props: { playlist },

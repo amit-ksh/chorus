@@ -1,3 +1,4 @@
+import { FC, ReactNode } from 'react';
 import {
   Box,
   BoxProps,
@@ -11,42 +12,39 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { FC, ReactNode, useState } from 'react';
 import fetcher from '../lib/fetcher';
 
 interface IProps extends BoxProps {
   children?: ReactNode;
+  resourceName: 'user' | 'playlist' | 'song';
   image: string;
   subtitle: string;
   title: string;
   description: string | ReactNode;
   isLoading?: boolean;
   roundImage?: boolean;
-  isEditable?: boolean;
+  isOwner?: boolean;
 }
 
 const Profile: FC<IProps> = ({
+  resourceName,
   image,
   subtitle,
   title,
   description,
   isLoading = false,
   roundImage = false,
-  isEditable = false,
+  isOwner = false,
   children,
   ...rest
 }) => {
-  const [name, setName] = useState(title);
-
   const toast = useToast();
-  const TOASTID = 'update-playlist-toast';
+  const TOASTID = 'update-toast';
 
-  const handlePlaylistName = async (newName: string) => {
-    if (newName.trim() === name) return;
-
+  const handleNameChange = async (newName: string) => {
     try {
-      const response = await fetcher('/put/playlist', {
-        playlist: {
+      const response = await fetcher(`/put/${resourceName}`, {
+        data: {
           id: rest.id,
           name: newName,
         },
@@ -55,7 +53,6 @@ const Profile: FC<IProps> = ({
       if (response.error) {
         throw new Error(response.error);
       } else {
-        setName(newName);
         if (!toast.isActive(TOASTID)) {
           toast({
             id: TOASTID,
@@ -119,8 +116,8 @@ const Profile: FC<IProps> = ({
               fontSize="2.5em"
               defaultValue={title || 'Playlist Name'}
               placeholder="Playlist Name"
-              isDisabled={isEditable} // if true, editing is disabled
-              onSubmit={handlePlaylistName}
+              isDisabled={!isOwner} // if true, editing will be disabled
+              onSubmit={handleNameChange}
             >
               <EditablePreview />
               <EditableInput

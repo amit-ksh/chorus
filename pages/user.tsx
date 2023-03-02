@@ -16,11 +16,14 @@ const User = () => {
       }
     >
       <Profile
+        id={user.id}
+        resourceName="user"
         subtitle="profile"
         title={`${user?.firstName} ${user?.lastName}`}
         description={`${user?.playlistsCount} public playlist`}
         image={`https://picsum.photos/400?random=${user?.id}`}
         isLoading={isLoading}
+        isOwner={true}
         roundImage
         m={10}
       />

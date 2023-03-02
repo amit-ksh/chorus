@@ -17,9 +17,12 @@ const Playlist = ({ playlist }) => {
       gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
     >
       <Profile
+        id={playlist.id}
+        resourceName="playlist"
         title={playlist.name}
         subtitle="Playlist"
         description={`${playlist.songs.length} songs`}
+        isOwner={playlist.isOwner}
         image={`https://picsum.photos/400?random=${playlist.id}`}
         m={10}
       >
@@ -74,15 +77,16 @@ export const getServerSideProps = async ({ query, req }) => {
         },
       },
     });
+    playlist.isOwner = playlist.userId === user.id;
+
+    return {
+      props: { playlist },
+    };
   } catch {
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: { playlist },
-  };
 };
 
 export default Playlist;
