@@ -5,7 +5,7 @@ import Playlists from '../components/playlists';
 import Profile from '../components/profile';
 import { useMe } from '../lib/hooks';
 
-const User = () => {
+const UserProfile = () => {
   const { user, isLoading } = useMe();
 
   return (
@@ -41,4 +41,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserProfile;

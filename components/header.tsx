@@ -140,7 +140,7 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
           >
             <Link
               as={NextLink}
-              href="/user"
+              href="/profile"
               w="full"
               py={1.5}
               px={3}
