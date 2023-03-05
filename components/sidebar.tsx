@@ -120,16 +120,31 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" align="center" mx="8" justify="center">
         <Heading
           as="h1"
           fontSize="2xl"
           fontFamily="monospace"
           fontWeight="bold"
+          w="full"
         >
-          <NextImage src="/logo.svg" alt="logo" height={60} width={120} />
+          <Box as="span">
+            <NextImage
+              src="/logo.svg"
+              alt="logo"
+              style={{
+                margin: '0 auto',
+              }}
+              height={10}
+              width={200}
+            />
+          </Box>
         </Heading>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <CloseButton
+          justifyItems="flex-end"
+          display={{ base: 'flex', md: 'none' }}
+          onClick={onClose}
+        />
       </Flex>
 
       {/* LINKS */}

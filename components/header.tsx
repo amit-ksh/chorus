@@ -77,7 +77,7 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
         fontFamily="monospace"
         fontWeight="bold"
       >
-        <NextImage src="/logo.svg" alt="logo" height={60} width={120} />
+        <NextImage src="/logo.svg" alt="logo" height={60} width={200} />
       </Heading>
 
       <Menu>

@@ -50,7 +50,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
       if (response.error) {
         throw new Error(response.error);
       } else {
-        router.push('/user');
+        router.push('/profile');
       }
     } catch (error) {
       toast({
@@ -73,7 +73,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
         h="15vh"
         borderBottom="white 1px solid"
       >
-        <NextImage src="/logo.svg" alt="logo" height={60} width={120} />
+        <NextImage src="/logo.svg" alt="logo" height={50} width={260} />
       </Flex>
 
       <Flex minH="85vh" justify="center" align="center" py="10%">
