@@ -30,6 +30,7 @@ const Playlist = ({ playlist }) => {
           type="Playlist"
           item={playlist}
           userFavorite={playlist.savedBy.length > 0}
+          isDisabled={playlist.isOwner}
           mt={6}
         />
       </Profile>

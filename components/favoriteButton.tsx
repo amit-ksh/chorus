@@ -19,12 +19,14 @@ interface IProps extends FlexProps {
   };
   userFavorite: boolean;
   type: 'Song' | 'Playlist';
+  isDisabled?: boolean;
 }
 
 const FavoriteButton: FC<IProps> = ({
   item,
   userFavorite,
   type = 'Song',
+  isDisabled = false,
   ...rest
 }) => {
   const [favorite, setFavorite] = useState<boolean>(userFavorite);
@@ -80,7 +82,9 @@ const FavoriteButton: FC<IProps> = ({
           icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
           _hover={{ bg: 'transparent' }}
           _focus={{ bg: 'transparent' }}
+          _disabled={{ cursor: 'default' }}
           onClick={makeFavorite}
+          isDisabled={isDisabled}
         />
       </Box>
     </Flex>

@@ -56,6 +56,7 @@ const Artist = ({ artist }) => {
       gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
     >
       <Profile
+        resourceName="user"
         title={artist.name}
         subtitle="Artist"
         description={`${artist.songs.length} songs`}

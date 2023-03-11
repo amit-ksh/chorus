@@ -31,6 +31,7 @@ const Song = ({ song, likedByUser }) => {
       gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
     >
       <Profile
+        resourceName="song"
         title={song.name}
         subtitle="Song"
         description={
@@ -50,6 +51,7 @@ const Song = ({ song, likedByUser }) => {
             type="Song"
             item={song}
             userFavorite={likedByUser}
+            isDisabled={song.isOwner}
             w="full"
           />
 
