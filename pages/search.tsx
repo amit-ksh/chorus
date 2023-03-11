@@ -11,7 +11,7 @@ import { searchClient } from '../lib/meilisearch';
 const Search = () => {
   return (
     <Box mx={4} my={8}>
-      <InstantSearch indexName="steam-video-games" searchClient={searchClient}>
+      <InstantSearch indexName="songs" searchClient={searchClient}>
         <InputGroup>
           <CustomSearchBox />
           <InputRightElement

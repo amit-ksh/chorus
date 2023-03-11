@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext \".ts,.js,.vue\" --ignore-path .gitignore .",
-    "format": "prettier --write \"**/*.{jsx,tsx,js,ts,md}\""
+    "format": "prettier --write \"**/*.{jsx,tsx,js,ts,md}\"",
+    "ms:addDocuments": "ts-node meilisearch/addDocuments.ts"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
@@ -23,6 +24,7 @@
     "format-duration": "^3.0.2",
     "framer-motion": "^8.5.5",
     "jsonwebtoken": "^9.0.0",
+    "meilisearch": "^0.31.1",
     "next": "^13.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -54,6 +56,6 @@
     "typescript": "4.9.5"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"module\"} prisma/seed.ts"
   }
 }

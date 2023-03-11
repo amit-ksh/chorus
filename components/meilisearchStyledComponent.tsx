@@ -80,7 +80,11 @@ export const CustomSearchBox = connectSearchBox(renderInput);
 
 export const CustomHits = connectHits(renderHits);
 
-export const CustomHit = ({ hit, ...rest }: GridProps & { hit: any }) => {
+interface IHit {
+  id: string;
+  name: string;
+}
+export const CustomHit = ({ hit, ...rest }: GridProps & { hit: IHit }) => {
   const isArtist = false;
 
   return (
@@ -109,7 +113,7 @@ export const CustomHit = ({ hit, ...rest }: GridProps & { hit: any }) => {
         />
       </Box>
 
-      <LinkOverlay as={NextLink} href={hit.link || '#'} mt="auto">
+      <LinkOverlay as={NextLink} href={`/song/${hit.id}` || '#'} mt="auto">
         <Heading as="h3" fontSize="sm" fontWeight="medium">
           {hit.name}
         </Heading>
