@@ -10,7 +10,7 @@ import {
 import { useStoreState } from 'easy-peasy';
 
 import { validateToken } from '../lib/auth';
-import { usePlaylist } from '../lib/hooks';
+import { useUserPlaylist } from '../lib/hooks';
 import prisma from '../lib/prisma';
 
 import { PlaylistCard, PlaylistSkeleton } from '../components/playlists';
@@ -29,7 +29,7 @@ const greeting = () => {
 };
 
 const Home = ({ artists, songs, playlists }) => {
-  const { playlists: userPlaylist, isLoading } = usePlaylist('playlist');
+  const { playlists: userPlaylists, isLoading } = useUserPlaylist();
 
   const activeSong = useStoreState((state: any) => state.activeSong);
 
@@ -53,10 +53,10 @@ const Home = ({ artists, songs, playlists }) => {
         </Text>
         <Box>
           {isLoading && <PlaylistSkeleton minW="310px" maxW="360px" w="40vw" />}
-          {!isLoading && userPlaylist.length > 0 && (
+          {!isLoading && userPlaylists.length > 0 && (
             <PlaylistCard
               as={LinkBox}
-              playlist={userPlaylist[0]}
+              playlist={userPlaylists[0]}
               minW="310px"
               maxW="360px"
               w="40vw"

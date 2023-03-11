@@ -5,13 +5,19 @@ import { useFavorite } from '../lib/hooks';
 import LinkCard from './linkcard';
 import Loader from './loader';
 
-const FavoriteSongs: FC = () => {
-  const { songs, isLoading } = useFavorite();
+interface IProps {
+  itemType: 'song' | 'artist' | 'playlist';
+  heading: string;
+  emptyMessage: string;
+}
+
+const UserFavorite: FC<IProps> = ({ itemType, heading, emptyMessage }) => {
+  const { favorites: songs, isLoading } = useFavorite(itemType);
 
   return (
     <Box as="section">
       <Heading as="h2" fontSize="2xl">
-        Favorite Songs
+        {heading}
       </Heading>
 
       {!isLoading && !songs.length && (
@@ -22,7 +28,7 @@ const FavoriteSongs: FC = () => {
             fontFamily="monospace"
             textAlign="center"
           >
-            0 Favorite Songs
+            {emptyMessage}
           </Text>
         </Center>
       )}
@@ -35,7 +41,7 @@ const FavoriteSongs: FC = () => {
             <LinkCard
               key={song.id}
               linkData={song}
-              link={`/song/${song.id}`}
+              link={`/${itemType}/${song.id}`}
               imageSize="148px"
             />
           ))}
@@ -44,4 +50,4 @@ const FavoriteSongs: FC = () => {
   );
 };
 
-export default FavoriteSongs;
+export default UserFavorite;

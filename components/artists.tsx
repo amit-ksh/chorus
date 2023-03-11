@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Box, Center, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 import LinkCard from './linkcard';
-import { useArtist } from '../lib/hooks';
 import Loader from './loader';
+import { useFavorite } from '../lib/hooks';
 
 const Artists: FC<{
   heading: string;
   emptyMessage: string;
 }> = ({ heading, emptyMessage }) => {
-  const { artists, isLoading } = useArtist();
+  const { favorites: artists, isLoading } = useFavorite('artist');
 
   return (
     <Box as="section">

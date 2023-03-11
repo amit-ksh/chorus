@@ -16,7 +16,7 @@ import fetcher from '../lib/fetcher';
 
 interface IProps extends BoxProps {
   children?: ReactNode;
-  resourceName: 'user' | 'playlist' | 'song';
+  resourceName: 'user' | 'playlist' | 'song' | 'artist';
   image: string;
   subtitle: string;
   title: string;

@@ -1,5 +1,5 @@
 import GradientLayout from '../components/gradientLayout';
-import FavoriteSongs from '../components/favoriteSongs';
+import UserFavorite from '../components/userFavorite';
 import Artists from '../components/artists';
 
 const FavoritePage = () => {
@@ -12,7 +12,11 @@ const FavoritePage = () => {
       p={4}
       color="white"
     >
-      <FavoriteSongs />
+      <UserFavorite
+        itemType="song"
+        heading="Favorite Songs"
+        emptyMessage="0 Favorite Songs"
+      />
       <Artists
         heading="Artists you following"
         emptyMessage="You have not followed anyone"

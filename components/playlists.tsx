@@ -21,11 +21,11 @@ import { MdDelete } from 'react-icons/md';
 
 import DeleteConfirmationModal from './deleteConfirmationModal';
 
-import { usePlaylist } from '../lib/hooks';
+import { useUserPlaylist } from '../lib/hooks';
 import { formatDate } from '../lib/formatter';
 
 export default function Playlists(props: SimpleGridProps) {
-  const { playlists, isLoading } = usePlaylist('playlist');
+  const { playlists, isLoading } = useUserPlaylist();
 
   return (
     <>

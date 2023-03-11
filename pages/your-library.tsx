@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 
 import GradientLayout from '../components/gradientLayout';
-import FavoriteSongs from '../components/favoriteSongs';
+import UserFavorite from '../components/userFavorite';
 import UserPlaylists from '../components/userPlaylists';
 
 const UserLibrary: FC = () => {
@@ -24,7 +24,11 @@ const UserLibrary: FC = () => {
 
         <TabPanels my={6}>
           <TabPanel>
-            <FavoriteSongs />
+            <UserFavorite
+              itemType="song"
+              heading="Favorite Songs"
+              emptyMessage="0 Favorite Songs"
+            />
           </TabPanel>
           <TabPanel>
             <UserPlaylists
@@ -33,10 +37,10 @@ const UserLibrary: FC = () => {
             />
           </TabPanel>
           <TabPanel>
-            <UserPlaylists
+            <UserFavorite
+              itemType="playlist"
               heading="Your Favorite Playlists"
               emptyMessage="You have 0 favorite playlists"
-              resourceName="savedPlaylist"
             />
           </TabPanel>
         </TabPanels>

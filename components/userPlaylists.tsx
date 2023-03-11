@@ -2,15 +2,14 @@ import { FC } from 'react';
 import { Box, Center, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 import LinkCard from './linkcard';
-import { usePlaylist } from '../lib/hooks';
+import { useUserPlaylist } from '../lib/hooks';
 import Loader from './loader';
 
 const UserPlaylists: FC<{
-  resourceName?: 'playlist' | 'savedPlaylist';
   heading: string;
   emptyMessage: string;
-}> = ({ resourceName = 'playlist', heading, emptyMessage }) => {
-  const { playlists, isLoading } = usePlaylist(resourceName);
+}> = ({ heading, emptyMessage }) => {
+  const { playlists, isLoading } = useUserPlaylist();
 
   return (
     <Box as="section">

@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import fetcher from './fetcher';
 
 export const useMe = () => {
-  const { data, error } = useSWR('/get/me', fetcher);
+  const { data, error } = useSWR('/get/user/me', fetcher);
 
   return {
     user: data,
@@ -11,8 +11,8 @@ export const useMe = () => {
   };
 };
 
-export const usePlaylist = (resourceName: 'playlist' | 'savedPlaylist') => {
-  const { data, error } = useSWR(`/get/${resourceName}`, fetcher);
+export const useUserPlaylist = () => {
+  const { data, error } = useSWR('/get/user/playlist/', fetcher);
 
   return {
     playlists: (data as any) || [],
@@ -21,21 +21,11 @@ export const usePlaylist = (resourceName: 'playlist' | 'savedPlaylist') => {
   };
 };
 
-export const useFavorite = () => {
-  const { data, error } = useSWR('/get/favorite', fetcher);
+export const useFavorite = (itemType: 'song' | 'playlist' | 'artist') => {
+  const { data, error } = useSWR(`/get/user/favorite/${itemType}`, fetcher);
 
   return {
-    songs: (data?.songs as any) || [],
-    isLoading: !data && !error,
-    isError: error,
-  };
-};
-
-export const useArtist = () => {
-  const { data, error } = useSWR('/get/artist', fetcher);
-
-  return {
-    artists: (data as any) || [],
+    favorites: (data as any) || [],
     isLoading: !data && !error,
     isError: error,
   };
