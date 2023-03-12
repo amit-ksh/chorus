@@ -25,7 +25,7 @@ const Artist = ({ artist }) => {
     setFollowing((v) => !v);
 
     try {
-      const response = await fetcher('/put/followArtist', {
+      const response = await fetcher('/put/follow/artist', {
         id: artist.id,
         following: !following,
       });

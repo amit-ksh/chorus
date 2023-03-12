@@ -17,7 +17,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { MdDelete } from 'react-icons/md';
+import { MdDeleteOutline } from 'react-icons/md';
 
 import DeleteConfirmationModal from './deleteConfirmationModal';
 
@@ -104,7 +104,7 @@ export const PlaylistCard = ({
 
           <Box>
             <IconButton
-              icon={<MdDelete />}
+              icon={<MdDeleteOutline />}
               bg="transparent"
               color="red"
               aria-label="delete playlist"

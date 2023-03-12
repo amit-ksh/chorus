@@ -14,7 +14,7 @@ import {
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { useStoreActions } from 'easy-peasy';
-import { MdDelete } from 'react-icons/md';
+import { MdDeleteOutline } from 'react-icons/md';
 import { useRouter } from 'next/router';
 
 import { formatDate, formatTime } from '../lib/formatter';
@@ -28,10 +28,10 @@ interface SongsTableProps {
     duration: number;
     url: string;
   }>;
-  hasPlayButton?: boolean;
+  isDeletable?: boolean;
 }
 
-const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
+const SongsTable: FC<SongsTableProps> = ({ songs, isDeletable = false }) => {
   const playSongs = useStoreActions(
     (actions: any) => actions.changeActiveSongs
   );
@@ -60,7 +60,7 @@ const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
       />
 
       <Box px={6} py={8}>
-        {hasPlayButton && songs.length > 0 && (
+        {songs.length > 0 && (
           <Flex align="center" mb="30px">
             <IconButton
               mr={4}
@@ -74,22 +74,24 @@ const SongsTable: FC<SongsTableProps> = ({ songs, hasPlayButton = true }) => {
               onClick={() => handlePlay()}
             />
 
-            <IconButton
-              icon={<MdDelete />}
-              size="lg"
-              bg="transparent"
-              color="red"
-              aria-label="delete playlist"
-              _hover={{
-                bg: 'transparent',
-                transform: 'scale(1.1)',
-              }}
-              _focus={{
-                bg: 'transparent',
-                transform: 'scale(1.1)',
-              }}
-              onClick={onOpen}
-            />
+            {isDeletable && (
+              <IconButton
+                icon={<MdDeleteOutline />}
+                size="lg"
+                bg="transparent"
+                color="red"
+                aria-label="delete playlist"
+                _hover={{
+                  bg: 'transparent',
+                  transform: 'scale(1.1)',
+                }}
+                _focus={{
+                  bg: 'transparent',
+                  transform: 'scale(1.1)',
+                }}
+                onClick={onOpen}
+              />
+            )}
           </Flex>
         )}
         <Table variant="unstyled">

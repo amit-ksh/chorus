@@ -1,6 +1,4 @@
-import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
-import { useStoreActions } from 'easy-peasy';
-import { BsFillPlayFill } from 'react-icons/bs';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import FavoriteButton from '../../components/favoriteButton';
 import GradientLayout from '../../components/gradientLayout';
 import Profile from '../../components/profile';
@@ -10,20 +8,8 @@ import prisma from '../../lib/prisma';
 import { getRandomBGColor } from '../../lib/utils';
 
 const Song = ({ song, likedByUser }) => {
-  const setActiveSong = useStoreActions(
-    (actions: any) => actions.changeActiveSong
-  );
-  const playSongs = useStoreActions(
-    (actions: any) => actions.changeActiveSongs
-  );
-
   // random color for gradient background
   const color = getRandomBGColor();
-
-  const handlePlay = (activeSong?) => {
-    setActiveSong(activeSong);
-    playSongs(song.artist.songs);
-  };
 
   return (
     <GradientLayout
@@ -48,36 +34,23 @@ const Song = ({ song, likedByUser }) => {
         {/* LIKES */}
         <Flex mt={6} align="center" color="gray.300">
           <FavoriteButton
-            type="Song"
+            type="song"
             item={song}
             userFavorite={likedByUser}
             isDisabled={song.isOwner}
             w="full"
           />
-
-          <Box>
-            <IconButton
-              icon={<BsFillPlayFill color="black" fontSize="30px" />}
-              aria-label="play"
-              bg="purple.500"
-              _hover={{ bg: 'purple.400' }}
-              _focus={{ bg: 'purple.400' }}
-              size="lg"
-              isRound
-              onClick={() => handlePlay(song)}
-            />
-          </Box>
         </Flex>
 
         {/* Songs By Artist */}
         <Box my={8}>
-          <Heading as="h2" fontSize="xl" color="white">
+          <Heading as="h2" fontSize="xl" color="white" mb={4}>
             <Text as="span" fontWeight="semibold">
               More Songs By
             </Text>{' '}
             {song.artist.name}
           </Heading>
-          <SongsTable songs={song.artist.songs} hasPlayButton={false} />
+          <SongsTable songs={song.artist.songs} />
         </Box>
       </Profile>
     </GradientLayout>

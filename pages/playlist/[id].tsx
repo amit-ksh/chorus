@@ -27,7 +27,7 @@ const Playlist = ({ playlist }) => {
         m={10}
       >
         <FavoriteButton
-          type="Playlist"
+          type="playlist"
           item={playlist}
           userFavorite={playlist.savedBy.length > 0}
           isDisabled={playlist.isOwner}
@@ -35,7 +35,7 @@ const Playlist = ({ playlist }) => {
         />
       </Profile>
 
-      <SongsTable songs={playlist.songs} />
+      <SongsTable songs={playlist.songs} isDeletable={playlist.isOwner} />
     </GradientLayout>
   );
 };

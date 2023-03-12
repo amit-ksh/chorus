@@ -18,7 +18,7 @@ interface IProps extends FlexProps {
     likes: number;
   };
   userFavorite: boolean;
-  type: 'Song' | 'Playlist';
+  type: 'song' | 'playlist';
   isDisabled?: boolean;
 }
 
@@ -40,7 +40,7 @@ const FavoriteButton: FC<IProps> = ({
     setFavorite((v) => !v);
 
     try {
-      const response = await fetcher(`/put/favorite${type}`, {
+      const response = await fetcher(`/put/favorite/${type}`, {
         id: item.id,
         favorite: !favorite,
       });
