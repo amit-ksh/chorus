@@ -83,9 +83,10 @@ export const CustomHits = connectHits(renderHits);
 interface IHit {
   id: string;
   name: string;
+  type: 'artist' | 'playlist' | 'song';
 }
 export const CustomHit = ({ hit, ...rest }: GridProps & { hit: IHit }) => {
-  const isArtist = false;
+  const isArtist = hit.type === 'artist';
 
   return (
     <Grid
@@ -113,7 +114,11 @@ export const CustomHit = ({ hit, ...rest }: GridProps & { hit: IHit }) => {
         />
       </Box>
 
-      <LinkOverlay as={NextLink} href={`/song/${hit.id}` || '#'} mt="auto">
+      <LinkOverlay
+        as={NextLink}
+        href={`/${hit.type}/${hit.id}` || '#'}
+        mt="auto"
+      >
         <Heading as="h3" fontSize="sm" fontWeight="medium">
           {hit.name}
         </Heading>
