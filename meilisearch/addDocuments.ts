@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 /* eslint-disable no-console */
 import MeiliSearch from 'meilisearch';
 
@@ -12,7 +16,6 @@ async function addDocuments() {
     playlistResp.json(),
     artistResp.json(),
   ]);
-
   const songDocuments = songs.map(({ id, name, image }) => ({
     id,
     name,
@@ -33,9 +36,11 @@ async function addDocuments() {
   }));
 
   const client = new MeiliSearch({
-    host: 'https://ms-35282174b78b-1815.sgp.meilisearch.io',
-    apiKey: '0b42ac846de1c1a7ed40469a0bc709987be0cf9a018959127724e6fdd201bbcc',
+    host: process.env['NEXT_PUBLIC_MEILISEARCH_HOST_URL'],
+    apiKey: process.env['MEILISEARCH_ADMIN_API_KEY'],
   });
+
+  console.log(client);
 
   const songIndex = client.index('songs');
   const playlistIndex = client.index('playlists');

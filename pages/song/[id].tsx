@@ -71,26 +71,6 @@ export const getServerSideProps = async ({ req, query }) => {
   }
 
   try {
-    const User = await prisma.user.findUnique({
-      where: { id: user.id },
-    });
-    const { songs } = await prisma.playlist.findUnique({
-      where: {
-        id: User.favoritePlaylistId,
-      },
-      select: {
-        songs: {
-          where: {
-            id: query.id,
-          },
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
-    const likedByUser = songs.length > 0;
-
     const song = await prisma.song.findUnique({
       where: {
         id: query.id,
@@ -109,10 +89,37 @@ export const getServerSideProps = async ({ req, query }) => {
       },
     });
 
+    const User = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { favoritePlaylistId: true },
+    });
+
+    if (!User.favoritePlaylistId)
+      return {
+        props: { song, likedByUser: false },
+      };
+
+    const { songs } = await prisma.playlist.findUnique({
+      where: {
+        id: User.favoritePlaylistId,
+      },
+      select: {
+        songs: {
+          where: {
+            id: query.id,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    const likedByUser = songs.length > 0;
+
     return {
       props: { song, likedByUser },
     };
-  } catch {
+  } catch (e) {
     return {
       notFound: true,
     };

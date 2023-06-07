@@ -62,7 +62,7 @@ const DeleteModal: FC<IProps> = ({ itemId, isOpen, onClose }) => {
         });
       }
     } finally {
-      router.push({ pathname: '/user' });
+      router.push({ pathname: '/profile' });
     }
   };
 
