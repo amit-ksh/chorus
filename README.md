@@ -1,16 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chorus
 
-## Getting Started
+Chorus is a full stack music streaming application. 
 
-First, run the development server:
+Website: [Locknest](https://chours.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Tech Stack Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&**logoColor**=white) ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) ![Prisma](https://img.shields.io/badge/prisma-brightgreen.svg?style=for-the-badge&logo=prisma&logoColor=white) ![Meilisearch](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+
+## Setting the local enviroment
+
+1. Clone the repo and install the dependencies
+
+   ```bash
+   git clone https://github.com/amit-ksh/chorus.git
+   cd chorus
+   npm install
+   ```
+
+1. Creating the .env file and set the following variables
+
+   ```bash
+    DATABASE_URL='YOUR_DB_URL'
+    NEXT_PUBLIC_MEILISEARCH_HOST_URL='MEILISEARCH_URL'
+    NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY='MEILISEARCH_SEARCH_API_KEY'
+    MEILISEARCH_ADMIN_API_KEY='MEILISEARCH_ADMIN_API_KEY'a
+    TRAX_ACCESS_TOKEN='YOUR_ACCESS_TOKEN'
+   ```
+
+1. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+1. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
