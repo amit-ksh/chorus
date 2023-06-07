@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: user.id,
       time: Date.now(),
     },
-    'secret',
+    process.env['CHORUS_ACCESS_TOKEN'],
     { expiresIn: '8h' }
   );
 

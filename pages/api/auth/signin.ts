@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res
       .status(500)
       .json({ error: 'Server Error! Please try again later.' });
-  }
+  }  
 
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = jwt.sign(
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         email: user.email,
         time: Date.now(),
       },
-      'secret',
+      process.env['CHORUS_ACCESS_TOKEN'],
       {
         expiresIn: '8h',
       }
@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.setHeader(
       'Set-Cookie',
-      cookie.serialize('TRAX_ACCESS_TOKEN', token, {
+      cookie.serialize('CHORUS_ACCESS_TOKEN', token, {
         httpOnly: true,
         maxAge: 8 * 60 * 60,
         path: '/',
