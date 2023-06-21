@@ -154,17 +154,25 @@ const Profile: FC<IProps> = ({
           w="70%"
           direction="column"
           justify="center"
-          align="center"
+          align={{ base: 'center', md: 'flex-start' }}
           p="20px"
           color="white"
         >
-          <Skeleton w="80px" isLoaded={!isLoading} fadeDuration={1.2}>
+          <Skeleton
+            w="80px"
+            isLoaded={!isLoading}
+            fadeDuration={1.2}
+            sx={{
+              '& > *': {
+                textAlign: { base: 'center', md: 'left' },
+              },
+            }}
+          >
             <Text
               fontSize="x-small"
               fontWeight="bold"
               letterSpacing="wide"
               casing="uppercase"
-              textAlign="center"
             >
               {subtitle}
             </Text>
@@ -173,9 +181,13 @@ const Profile: FC<IProps> = ({
             my={2}
             h={isLoading ? '2.5em' : 'auto'}
             w="full"
-            textAlign="center"
             isLoaded={!isLoading}
             fadeDuration={1.2}
+            sx={{
+              '& > *': {
+                textAlign: { base: 'center', md: 'left' },
+              },
+            }}
           >
             <Editable
               fontSize="2.5em"
@@ -192,10 +204,17 @@ const Profile: FC<IProps> = ({
               />
             </Editable>
           </Skeleton>
-          <Skeleton w="120px" isLoaded={!isLoading} fadeDuration={1.2}>
-            <Text fontSize="x-small" textAlign="center">
-              {description}
-            </Text>
+          <Skeleton
+            w="120px"
+            isLoaded={!isLoading}
+            fadeDuration={1.2}
+            sx={{
+              '& > *': {
+                textAlign: { base: 'center', md: 'left' },
+              },
+            }}
+          >
+            <Text fontSize="x-small">{description}</Text>
           </Skeleton>
         </Flex>
       </Flex>
