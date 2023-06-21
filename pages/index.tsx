@@ -74,7 +74,7 @@ const Home = ({ artists, songs, playlists }) => {
         {artists.map((artist) => (
           <LinkCard
             key={artist.id}
-            link={`/artist/${artist.id}`}
+            type="artist"
             linkData={artist}
             imageSize="145px"
             roundImage={true}
@@ -87,7 +87,7 @@ const Home = ({ artists, songs, playlists }) => {
         {songs.map((song) => (
           <LinkCard
             key={song.id}
-            link={`/song/${song.id}`}
+            type="song"
             linkData={song}
             imageSize="148px"
           />
@@ -99,7 +99,7 @@ const Home = ({ artists, songs, playlists }) => {
         {playlists.map((playlist) => (
           <LinkCard
             key={playlist.id}
-            link={`/playlist/${playlist.id}`}
+            type="playlist"
             linkData={playlist}
             imageSize="148px"
           />
@@ -113,12 +113,12 @@ export default Home;
 
 export const getServerSideProps = async ({ req }) => {
   try {
-    validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+    validateToken(req.cookies.CHORUS_ACCESS_TOKEN);
   } catch (e) {
     return {
       redirect: {
         permanent: false,
-        path: '/signin',
+        destination: '/signin',
       },
     };
   }

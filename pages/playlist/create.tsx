@@ -15,7 +15,7 @@ const CreatePlaylistPage = ({ playlist }) => {
       }
     >
       <Profile
-        resourceName="playlist"
+        type="playlist"
         id={playlist.id}
         title={playlist.name}
         subtitle="Playlist"
@@ -33,7 +33,7 @@ const CreatePlaylistPage = ({ playlist }) => {
 export const getServerSideProps = async ({ req }) => {
   let user;
   try {
-    user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+    user = validateToken(req.cookies.CHORUS_ACCESS_TOKEN);
   } catch (e) {
     return {
       redirect: {

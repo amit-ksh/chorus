@@ -98,7 +98,9 @@ const Header: FC<MobileProps> = ({ onOpen, ...rest }) => {
             ) : (
               <Avatar
                 size="sm"
-                src={`https://picsum.photos/400?random=${user?.id}`}
+                src={
+                  user.image || `https://picsum.photos/400?random=${user?.id}`
+                }
               />
             )}
 

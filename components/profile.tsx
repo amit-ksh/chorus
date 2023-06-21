@@ -7,6 +7,7 @@ import {
   EditablePreview,
   Flex,
   Image,
+  Input,
   Skeleton,
   SkeletonCircle,
   Text,
@@ -15,8 +16,9 @@ import {
 import fetcher from '../lib/fetcher';
 
 interface IProps extends BoxProps {
+  id: string;
   children?: ReactNode;
-  resourceName: 'user' | 'playlist' | 'song' | 'artist';
+  type: 'user' | 'playlist' | 'song' | 'artist';
   image: string;
   subtitle: string;
   title: string;
@@ -27,7 +29,8 @@ interface IProps extends BoxProps {
 }
 
 const Profile: FC<IProps> = ({
-  resourceName,
+  id,
+  type,
   image,
   subtitle,
   title,
@@ -42,13 +45,56 @@ const Profile: FC<IProps> = ({
   const TOASTID = 'update-toast';
 
   const handleNameChange = async (newName: string) => {
+    // if (newName === )
+
     try {
-      const response = await fetcher(`/put/${resourceName}`, {
+      const response = await fetcher(`/put/${type}`, {
         data: {
-          id: rest.id,
+          id,
           name: newName,
         },
       });
+
+      if (response.error) {
+        throw new Error(response.error);
+      } else {
+        if (!toast.isActive(TOASTID)) {
+          toast({
+            id: TOASTID,
+            title: response.message,
+            status: 'success',
+            duration: 5000,
+            position: 'top',
+          });
+        }
+      }
+    } catch (error) {
+      if (!toast.isActive(TOASTID)) {
+        toast({
+          id: TOASTID,
+          title: error.message,
+          status: 'error',
+          duration: 5000,
+          position: 'top',
+        });
+      }
+    }
+  };
+
+  const uploadImage = async (e) => {
+    const img = e.target.files[0];
+
+    const formdata = new FormData();
+    formdata.append('id', id);
+    formdata.append('type', type);
+    formdata.append('image', img);
+
+    try {
+      const resp = await fetch('/api/put/image', {
+        method: 'PUT',
+        body: formdata,
+      });
+      const response = await resp.json();
 
       if (response.error) {
         throw new Error(response.error);
@@ -80,15 +126,26 @@ const Profile: FC<IProps> = ({
     <Box {...rest}>
       <Flex align="center" direction={{ base: 'column', md: 'row' }}>
         <SkeletonCircle
+          position="relative"
           size={['60%', '140px']}
           isLoaded={!isLoading}
           fadeDuration={1.2}
           borderRadius={roundImage ? 'full' : '3px'}
         >
+          <Input
+            type="file"
+            accept="image/png"
+            pos="absolute"
+            h="full"
+            cursor="pointer"
+            opacity={0}
+            borderRadius={roundImage ? 'full' : '3px'}
+            onChange={uploadImage}
+          />
           <Image
+            src={image}
             boxSize="full"
             boxShadow="2xl"
-            src={image}
             borderRadius={roundImage ? 'full' : '3px'}
           />
         </SkeletonCircle>
@@ -97,7 +154,7 @@ const Profile: FC<IProps> = ({
           w="70%"
           direction="column"
           justify="center"
-          align="flex-start"
+          align="center"
           p="20px"
           color="white"
         >
@@ -107,6 +164,7 @@ const Profile: FC<IProps> = ({
               fontWeight="bold"
               letterSpacing="wide"
               casing="uppercase"
+              textAlign="center"
             >
               {subtitle}
             </Text>
@@ -115,6 +173,7 @@ const Profile: FC<IProps> = ({
             my={2}
             h={isLoading ? '2.5em' : 'auto'}
             w="full"
+            textAlign="center"
             isLoaded={!isLoading}
             fadeDuration={1.2}
           >
@@ -134,7 +193,9 @@ const Profile: FC<IProps> = ({
             </Editable>
           </Skeleton>
           <Skeleton w="120px" isLoaded={!isLoading} fadeDuration={1.2}>
-            <Text fontSize="x-small">{description}</Text>
+            <Text fontSize="x-small" textAlign="center">
+              {description}
+            </Text>
           </Skeleton>
         </Flex>
       </Flex>

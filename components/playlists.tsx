@@ -8,6 +8,7 @@ import {
   GridItem,
   IconButton,
   Img,
+  Link,
   LinkBox,
   LinkOverlay,
   SimpleGrid,
@@ -29,22 +30,45 @@ export default function Playlists(props: SimpleGridProps) {
 
   return (
     <>
-      <SimpleGrid columns={[1, 2, 1, 2]} gap={4} {...props}>
-        {isLoading
-          ? [1, 2, 3, 4, 5, 6].map((n) => (
-              <PlaylistSkeleton key={n} bgColor="whiteAlpha" />
-            ))
-          : playlists.map((playlist) => (
-              <GridItem key={playlist.id}>
-                <PlaylistCard
-                  as={LinkBox}
-                  playlist={playlist}
-                  transition="transform 300ms"
-                  _hover={{ transform: 'scale(1.05)' }}
-                  _focusWithin={{ transform: 'scale(1.05)' }}
-                />
-              </GridItem>
-            ))}
+      <SimpleGrid columns={[1, 2, 1, 2]} gap={6} {...props}>
+        {isLoading &&
+          [1, 2, 3, 4, 5, 6].map((n) => (
+            <PlaylistSkeleton key={n} bgColor="whiteAlpha" />
+          ))}
+        {playlists?.length ? (
+          playlists.map((playlist) => (
+            <GridItem key={playlist.id}>
+              <PlaylistCard
+                as={LinkBox}
+                playlist={playlist}
+                transition="transform 300ms"
+                _hover={{ transform: 'scale(1.05)' }}
+                _focusWithin={{ transform: 'scale(1.05)' }}
+              />
+            </GridItem>
+          ))
+        ) : (
+          <GridItem
+            colSpan={2}
+            as={Flex}
+            w="full"
+            direction="column"
+            align="center"
+            justify="center"
+            gap={2}
+          >
+            <Text>You have 0 playlist!</Text>
+            <LinkBox
+              color="purple.400"
+              fontWeight="semibold"
+              textDecoration="underline"
+            >
+              <Link as={NextLink} href="/create">
+                Create One!
+              </Link>
+            </LinkBox>
+          </GridItem>
+        )}
       </SimpleGrid>
     </>
   );
@@ -67,7 +91,7 @@ export const PlaylistCard = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <Box>
       <Box pl="2" borderRadius="4px" bg={bgColor} {...rest}>
         <Flex
           align="center"
@@ -88,7 +112,7 @@ export const PlaylistCard = ({
             </Box>
             <Box ml={6}>
               <LinkOverlay as={NextLink} href={`playlist/${playlist.id}`}>
-                <Text fontSize="1.3em" color="white">
+                <Text fontSize="1.2em" color="white">
                   {playlist.name}
                 </Text>
               </LinkOverlay>
@@ -120,7 +144,7 @@ export const PlaylistCard = ({
         isOpen={isOpen}
         onClose={onClose}
       />
-    </>
+    </Box>
   );
 };
 

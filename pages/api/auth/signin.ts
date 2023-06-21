@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res
       .status(500)
       .json({ error: 'Server Error! Please try again later.' });
-  }  
+  }
 
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = jwt.sign(
@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         email: user.email,
         time: Date.now(),
       },
-      process.env['CHORUS_ACCESS_TOKEN'],
+      process.env['CHORUS_SECRET'],
       {
         expiresIn: '8h',
       }

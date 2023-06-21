@@ -44,10 +44,6 @@ const DeleteModal: FC<IProps> = ({ itemId, isOpen, onClose }) => {
             status: 'success',
             duration: 5000,
             position: 'top',
-            containerStyle: {
-              bg: 'red',
-              color: 'white',
-            },
           });
         }
       }

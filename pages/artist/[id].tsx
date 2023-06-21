@@ -56,11 +56,13 @@ const Artist = ({ artist }) => {
       gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
     >
       <Profile
-        resourceName="user"
+        id={artist?.id}
+        type="artist"
         title={artist.name}
         subtitle="Artist"
         description={`${artist.songs.length} songs`}
-        image={`https://picsum.photos/400?random=${artist.id}`}
+        image={artist?.image || `https://picsum.photos/400?random=${artist.id}`}
+        roundImage={true}
         m={10}
       >
         <Flex mt={6} align="center" color="gray.300">
@@ -101,7 +103,7 @@ const Artist = ({ artist }) => {
 export const getServerSideProps = async ({ req, query }) => {
   let user;
   try {
-    user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+    user = validateToken(req.cookies.CHORUS_ACCESS_TOKEN);
   } catch (e) {
     return {
       redirect: {

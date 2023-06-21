@@ -71,9 +71,10 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
         justify="center"
         align="center"
         h="15vh"
+        py={8}
         borderBottom="white 1px solid"
       >
-        <NextImage src="/logo.svg" alt="logo" height={50} width={260} />
+        <NextImage src="/logo.svg" alt="chorus logo" height={50} width={260} />
       </Flex>
 
       <Flex minH="85vh" justify="center" align="center" py="10%">

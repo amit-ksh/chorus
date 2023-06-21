@@ -39,9 +39,9 @@ const UserFavorite: FC<IProps> = ({ itemType, heading, emptyMessage }) => {
         {!isLoading &&
           songs.map((song) => (
             <LinkCard
+              type={itemType}
               key={song.id}
               linkData={song}
-              link={`/${itemType}/${song.id}`}
               imageSize="148px"
             />
           ))}

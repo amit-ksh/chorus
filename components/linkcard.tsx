@@ -22,16 +22,16 @@ interface ILinkCardProps {
       songs: string[];
     };
   };
-  link: string;
   imageSize: LayoutProps['boxSize'];
   roundImage?: boolean;
+  type: 'song' | 'artist' | 'playlist';
 }
 
 const LinkCard: FC<ILinkCardProps> = ({
   linkData,
   imageSize,
   roundImage = false,
-  link,
+  type,
 }) => {
   const setActiveSong = useStoreActions(
     (actions: any) => actions.changeActiveSong
@@ -66,14 +66,15 @@ const LinkCard: FC<ILinkCardProps> = ({
           src={`https://picsum.photos/400?random=${linkData.id}`}
           alt={linkData.name}
         />
-        {!!linkData.url && (
+        {type === 'song' && (
           <Box position="absolute" bottom={2} right={2}>
             <IconButton
               icon={<BsFillPlayFill color="black" fontSize="30px" />}
               aria-label="play"
               bg="purple.500"
-              _hover={{ bg: 'purple.400' }}
-              _focus={{ bg: 'purple.400' }}
+              transition="all 0.2s ease-in-out"
+              _hover={{ bg: 'purple.400', transform: 'scale(1.1)' }}
+              _focus={{ bg: 'purple.400', transform: 'scale(1.1)' }}
               size="md"
               isRound
               zIndex={10}
@@ -83,7 +84,7 @@ const LinkCard: FC<ILinkCardProps> = ({
         )}
       </Box>
 
-      <LinkOverlay as={NextLink} href={link}>
+      <LinkOverlay as={NextLink} href={`${type}/${linkData.id}`}>
         <Heading as="h3" fontSize="md" fontWeight="medium">
           {linkData.name}
         </Heading>

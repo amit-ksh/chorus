@@ -34,11 +34,11 @@ const UserPlaylists: FC<{
 
       <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} my={8} ml={4}>
         {!isLoading &&
-          playlists.map((song) => (
+          playlists.map((playlist) => (
             <LinkCard
-              key={song.id}
-              linkData={song}
-              link={`/playlist/${song.id}`}
+              key={playlist.id}
+              type="playlist"
+              linkData={playlist}
               imageSize="148px"
             />
           ))}

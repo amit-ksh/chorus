@@ -19,14 +19,14 @@ interface IProps extends FlexProps {
   };
   userFavorite: boolean;
   type: 'song' | 'playlist';
-  isDisabled?: boolean;
+  isOwner?: boolean;
 }
 
 const FavoriteButton: FC<IProps> = ({
   item,
   userFavorite,
   type = 'Song',
-  isDisabled = false,
+  isOwner = false,
   ...rest
 }) => {
   const [favorite, setFavorite] = useState<boolean>(userFavorite);
@@ -73,20 +73,22 @@ const FavoriteButton: FC<IProps> = ({
         </Text>
       </Heading>
 
-      <Box alignSelf="flex-end" ml={4}>
-        <IconButton
-          bg="transparent"
-          color="red"
-          fontSize="25px"
-          aria-label="like"
-          icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
-          _hover={{ bg: 'transparent' }}
-          _focus={{ bg: 'transparent' }}
-          _disabled={{ cursor: 'default' }}
-          onClick={makeFavorite}
-          isDisabled={isDisabled}
-        />
-      </Box>
+      {!isOwner && (
+        <Box alignSelf="flex-end" ml={4}>
+          <IconButton
+            bg="transparent"
+            color="red"
+            fontSize="25px"
+            aria-label="like"
+            icon={favorite ? <AiFillHeart /> : <AiOutlineHeart />}
+            _hover={{ bg: 'transparent' }}
+            _focus={{ bg: 'transparent' }}
+            _disabled={{ cursor: 'default' }}
+            onClick={makeFavorite}
+            isDisabled={isOwner}
+          />
+        </Box>
+      )}
     </Flex>
   );
 };

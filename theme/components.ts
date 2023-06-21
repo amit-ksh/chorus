@@ -30,3 +30,21 @@ export const Skeleton: DeepPartial<ComponentStyleConfig> = {
     [$endColor.variable]: 'gray.900',
   },
 };
+
+export const Alert: DeepPartial<ComponentStyleConfig> = {
+  variants: {
+    solid: (props) => {
+      const { colorScheme: c } = props;
+
+      return {
+        container: {
+          bg: `${c}.500`,
+          color: 'white',
+        },
+        icon: {
+          color: 'white',
+        },
+      };
+    },
+  },
+};

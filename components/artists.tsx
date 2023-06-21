@@ -34,12 +34,13 @@ const Artists: FC<{
 
       <SimpleGrid columns={[2, 3, 3, 4, 5]} gap={6} my={8} ml={4}>
         {!isLoading &&
-          artists.map((song) => (
+          artists.map((artist) => (
             <LinkCard
-              key={song.id}
-              linkData={song}
-              link={`/artist/${song.id}`}
+              key={artist.id}
+              type="artist"
+              linkData={artist}
               imageSize="148px"
+              roundImage
             />
           ))}
       </SimpleGrid>

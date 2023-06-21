@@ -17,25 +17,27 @@ const Playlist = ({ playlist }) => {
       gradient={`linear(40deg, ${color}.500 0%, ${color}.800 30%, rgba(0,0,0,0.6) 100%)`}
     >
       <Profile
-        id={playlist.id}
-        resourceName="playlist"
+        id={playlist?.id}
+        type="playlist"
         title={playlist.name}
         subtitle="Playlist"
         description={`${playlist.songs.length} songs`}
         isOwner={playlist.isOwner}
-        image={`https://picsum.photos/400?random=${playlist.id}`}
+        image={
+          playlist?.image || `https://picsum.photos/400?random=${playlist.id}`
+        }
         m={10}
       >
         <FavoriteButton
           type="playlist"
           item={playlist}
           userFavorite={playlist.savedBy.length > 0}
-          isDisabled={playlist.isOwner}
+          isOwner={playlist.isOwner}
           mt={6}
         />
       </Profile>
 
-      <SongsTable songs={playlist.songs} isDeletable={playlist.isOwner} />
+      <SongsTable songs={playlist.songs} isEditable={playlist.isOwner} />
     </GradientLayout>
   );
 };
@@ -43,7 +45,7 @@ const Playlist = ({ playlist }) => {
 export const getServerSideProps = async ({ query, req }) => {
   let user;
   try {
-    user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+    user = validateToken(req.cookies.CHORUS_ACCESS_TOKEN);
   } catch (e) {
     return {
       redirect: {

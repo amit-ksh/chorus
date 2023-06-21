@@ -31,13 +31,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: user.id,
       time: Date.now(),
     },
-    process.env['CHORUS_ACCESS_TOKEN'],
+    process.env['CHORUS_SECRET'],
     { expiresIn: '8h' }
   );
 
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize('TRAX_ACCESS_TOKEN', token, {
+    cookie.serialize('CHORUS_ACCESS_TOKEN', token, {
       httpOnly: true,
       maxAge: 8 * 60 * 60,
       path: '/',
