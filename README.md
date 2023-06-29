@@ -2,7 +2,7 @@
 
 Chorus is a full stack music streaming application. 
 
-Website: [Locknest](https://chours.vercel.app)
+Website: [Chorus](https://chours.vercel.app)
 
 ### Tech Stack Used
 
